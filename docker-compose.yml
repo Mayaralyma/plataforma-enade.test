@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: enade
+      POSTGRES_PASSWORD: enade
+      POSTGRES_DB: enade
+    ports:
+      - "5432:5432"
+    volumes:
+      - enade_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U enade -d enade"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  web:
+    build: .
+    command: sh -c "npx prisma migrate deploy && npm run dev"
+    environment:
+      DATABASE_URL: postgresql://enade:enade@db:5432/enade?schema=public
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-local-development-secret-change-before-deploy-123456}
+      BETTER_AUTH_URL: http://localhost:3000
+      ADMIN_EMAILS: ${ADMIN_EMAILS:-}
+      PDF_STORAGE_DIR: /app/uploads
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - enade_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+  worker:
+    build: .
+    command: sh -c "until wget -q -O /dev/null http://web:3000; do sleep 2; done; npm run worker"
+    environment:
+      DATABASE_URL: postgresql://enade:enade@db:5432/enade?schema=public
+      PDF_STORAGE_DIR: /app/uploads
+      WORKER_POLL_INTERVAL: 10000
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - enade_uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+      web:
+        condition: service_started
+volumes:
+  enade_data:
+  enade_uploads:

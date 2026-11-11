@@ -1,0 +1,61 @@
+{
+  "name": "plataforma-simulados-enade",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "test": "vitest run",
+    "test:e2e": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/playwright/test.ps1",
+    "validate:official-enade": "node --import ./scripts/node-compat.mjs --import tsx scripts/validate-official-enade.ts",
+    "validate:official-enade:2021": "node --import ./scripts/node-compat.mjs --import tsx scripts/validate-official-enade-2021.ts",
+    "playwright:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/playwright/install.ps1",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "node --import ./scripts/node-compat.mjs --import tsx prisma/seed.ts",
+    "db:local:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/postgres/install.ps1",
+    "db:local:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/postgres/start.ps1",
+    "db:local:stop": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/postgres/stop.ps1",
+    "db:local:setup": "npm run db:local:install && npm run db:local:start && npm run db:deploy",
+    "worker": "node --import ./scripts/node-compat.mjs --import tsx worker/index.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "better-auth": "^1.3.34",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "next": "^15.5.6",
+    "pdf-parse": "^1.1.1",
+    "pg-boss": "^10.3.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@playwright/test": "^1.65.0",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/node": "^22.10.2",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.5.6",
+    "prisma": "^6.19.0",
+    "tailwindcss": "^4.1.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^5.1.0"
+  },
+  "allowScripts": {
+    "@prisma/client@6.19.3": true,
+    "prisma@6.19.3": true,
+    "@prisma/engines@6.19.3": true,
+    "esbuild@0.28.2": true
+  }
+}

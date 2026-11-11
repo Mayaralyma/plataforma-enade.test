@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: enade
+          POSTGRES_PASSWORD: enade
+          POSTGRES_DB: enade
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U enade -d enade"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://enade:enade@localhost:5432/enade?schema=public
+      BETTER_AUTH_SECRET: ci-only-secret-value-not-used-outside-tests-123456
+      BETTER_AUTH_URL: http://127.0.0.1:3000
+      ADMIN_EMAILS: admin@example.test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run db:generate
+      - run: npm run db:deploy
+      - run: npm run db:seed
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run build

@@ -1,0 +1,200 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  STUDENT
+}
+
+enum QuestionStatus {
+  PENDING
+  PUBLISHED
+  DISCARDED
+}
+
+enum ProcessingStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum SimulationStatus {
+  IN_PROGRESS
+  FINISHED
+}
+
+model User {
+  id            String       @id
+  name          String
+  email         String       @unique
+  emailVerified Boolean      @default(false)
+  image         String?
+  role          UserRole     @default(STUDENT)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  simulations   Simulation[]
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  @@index([identifier])
+  @@map("verification")
+}
+
+model Edition {
+  id              String       @id @default(cuid())
+  year            Int
+  area            String
+  originalFileName String?
+  filePath        String?
+  answerKeyPath   String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  questions       Question[]
+  jobs            ImportJob[]
+  answerKeys      AnswerKeyEntry[]
+  simulations     Simulation[]
+  @@unique([year, area])
+  @@index([year, area])
+}
+
+model Question {
+  id             String         @id @default(cuid())
+  editionId      String
+  edition        Edition        @relation(fields: [editionId], references: [id], onDelete: Cascade)
+  originalNumber Int
+  statement      String         @db.Text
+  status         QuestionStatus @default(PENDING)
+  correctOption  String?
+  annulled       Boolean        @default(false)
+  needsReview    Boolean        @default(false)
+  reviewNote     String?        @db.Text
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  options        Option[]
+  answers        SimulationAnswer[]
+  @@unique([editionId, originalNumber])
+  @@index([editionId, status, originalNumber])
+}
+
+model Option {
+  id         String   @id @default(cuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  label      String
+  text       String   @db.Text
+  @@unique([questionId, label])
+  @@index([questionId])
+}
+
+model AnswerKeyEntry {
+  id             String   @id @default(cuid())
+  editionId      String
+  edition        Edition  @relation(fields: [editionId], references: [id], onDelete: Cascade)
+  originalNumber Int
+  correctOption  String?
+  annulled       Boolean  @default(false)
+  @@unique([editionId, originalNumber])
+}
+
+model ImportJob {
+  id          String           @id @default(cuid())
+  editionId   String
+  edition     Edition          @relation(fields: [editionId], references: [id], onDelete: Cascade)
+  status      ProcessingStatus @default(QUEUED)
+  attempts    Int              @default(0)
+  error       String?          @db.Text
+  totalFound  Int              @default(0)
+  totalFailed Int              @default(0)
+  createdAt   DateTime         @default(now())
+  startedAt   DateTime?
+  finishedAt  DateTime?
+  issues      ImportIssue[]
+  @@index([status, createdAt])
+}
+
+model ImportIssue {
+  id              String    @id @default(cuid())
+  jobId           String
+  job             ImportJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  originalNumber  Int?
+  details         String    @db.Text
+  createdAt       DateTime  @default(now())
+  @@unique([jobId, originalNumber])
+}
+
+model Simulation {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  editionId   String
+  edition     Edition          @relation(fields: [editionId], references: [id], onDelete: Restrict)
+  status      SimulationStatus @default(IN_PROGRESS)
+  score       Int?
+  total       Int?
+  startedAt   DateTime         @default(now())
+  finishedAt  DateTime?
+  answers     SimulationAnswer[]
+  @@index([userId, status, startedAt])
+}
+
+model SimulationAnswer {
+  id           String     @id @default(cuid())
+  simulationId String
+  simulation   Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  questionId   String
+  question     Question   @relation(fields: [questionId], references: [id], onDelete: Restrict)
+  selected     String?
+  isCorrect    Boolean?
+  snapshot     Json?
+  @@unique([simulationId, questionId])
+  @@index([simulationId])
+}
