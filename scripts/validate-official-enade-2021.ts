@@ -3,7 +3,7 @@ import path from "node:path";
 import pdfParse from "pdf-parse";
 import { extractQuestions, parseAnswerKey } from "../lib/pdf-parser";
 
-const base = path.resolve(".local/official-enade/2021-sistemas-informacao");
+const base = path.resolve("data/official-enade/2021-sistemas-informacao");
 const proofPath = path.join(base, "prova-2021-sistemas-informacao.pdf");
 const keyPath = path.join(base, "gabarito-2021-sistemas-informacao.pdf");
 

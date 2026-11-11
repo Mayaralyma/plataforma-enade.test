@@ -12,7 +12,7 @@ VerificaÃ§Ã£o realizada em 10/11/2026 sobre a versÃ£o atual do repositÃ³
 | `npm run lint` | Passou; a configuraÃ§Ã£o foi ajustada para ignorar artefatos gerados pelo Next.js |
 | `npm run build` | Passou com segredo e URL de teste configurados |
 | `npm run test:e2e` | 3 testes aprovados; encerrou com codigo 0 | Estudante, curadoria, PDF protegido e viewport; quando os PDFs oficiais estÃ£o em `.local`, testa tambÃ©m importaÃ§Ã£o pelo endpoint, worker/PostgreSQL e aplicaÃ§Ã£o do gabarito. |
-| `npm run validate:official-enade` | Passou com os PDFs oficiais locais | 40 pÃ¡ginas processadas; 38 questÃµes objetivas com cinco alternativas; 38 respostas do gabarito identificadas. Dez questÃµes foram sinalizadas com motivo para revisÃ£o manual por conteÃºdo visual/grÃ¡fico. O `pdf-parse` emite avisos de fonte nÃ£o fatais durante a leitura. |
+| `npm run validate:official-enade` | Passou com os PDFs oficiais em `data/official-enade/2023-engenharia-computacao/` | 40 pÃ¡ginas processadas; 38 questÃµes objetivas com cinco alternativas; 38 respostas do gabarito identificadas. Dez questÃµes foram sinalizadas com motivo para revisÃ£o manual por conteÃºdo visual/grÃ¡fico. O `pdf-parse` emite avisos de fonte nÃ£o fatais durante a leitura. |
 
 Os testes unitÃ¡rios cobrem a segmentaÃ§Ã£o bÃ¡sica de questÃµes e alternativas, incluindo alternativas Aâ€“E no formato textual observado na prova oficial do ENADE 2023 (sem pontuaÃ§Ã£o apÃ³s a letra), sinalizaÃ§Ã£o textual de conteÃºdo para revisÃ£o manual, leitura de gabarito TXT/CSV, polÃ­tica de papÃ©is e cÃ¡lculo da nota com questÃµes anuladas ou sem resposta. O Playwright contÃ©m um fluxo de cadastro de estudante, tentativa de acesso administrativo e conclusÃ£o de um simulado com a ediÃ§Ã£o de demonstraÃ§Ã£o.
 

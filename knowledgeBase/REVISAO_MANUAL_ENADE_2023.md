@@ -1,6 +1,6 @@
 ﻿# Revisao manual â€” ENADE 2023, Engenharia de Computacao
 
-Revisao aplicada em 10/11/2026 usando os arquivos oficiais locais em `.local/official-enade/`.
+Revisao aplicada em 10/11/2026 usando os arquivos oficiais versionados em `data/official-enade/2023-engenharia-computacao/`.
 
 ## Resultado no banco local
 
@@ -37,6 +37,6 @@ Revisao aplicada em 10/11/2026 usando os arquivos oficiais locais em `.local/off
 
 As imagens nao foram incorporadas ao texto da questao. As descricoes e transcricoes tornam os dados legiveis para o simulado, e o PDF original continua privado, associado a edicao e acessivel pela curadoria administrativa. Antes de publicar, o administrador deve conferir cada transcricao pelo link `Abrir PDF original` no editor da questao.
 
-Fonte: PDF oficial `enade-2023-engenharia-computacao.pdf` e gabarito definitivo local.
+Fonte: PDF oficial `data/official-enade/2023-engenharia-computacao/enade-2023-engenharia-computacao.pdf` e gabarito definitivo `data/official-enade/2023-engenharia-computacao/gabarito-2023-engenharia-computacao.pdf`.
 
 

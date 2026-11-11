@@ -3,7 +3,7 @@ import path from "node:path";
 import pdfParse from "pdf-parse";
 import { extractQuestions, parseAnswerKey } from "../lib/pdf-parser";
 
-const base = path.resolve(".local/official-enade");
+const base = path.resolve("data/official-enade/2023-engenharia-computacao");
 const proofPath = path.join(base, "enade-2023-engenharia-computacao.pdf");
 const keyPath = path.join(base, "gabarito-2023-engenharia-computacao.pdf");
 
