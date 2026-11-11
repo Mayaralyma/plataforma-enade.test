@@ -2,7 +2,6 @@ import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import PgBoss from "pg-boss";
 import { randomUUID } from "node:crypto";
-import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { once } from "node:events";
 import { spawn, type ChildProcess } from "node:child_process";
@@ -24,6 +23,36 @@ async function waitForJob(page: import("@playwright/test").Page, jobId: string) 
   return result!;
 }
 
+async function importOfficialExam(
+  page: import("@playwright/test").Page,
+  options: { year: number; area: string; fileName: string; buffer: Buffer; expectedQuestions: number },
+) {
+  const upload = await page.request.post("/api/admin/imports", {
+    multipart: {
+      year: String(options.year),
+      area: options.area,
+      file: { name: options.fileName, mimeType: "application/pdf", buffer: options.buffer },
+    },
+  });
+  const accepted = await upload.json() as { jobId: string; edition: { id: string; filePath: string } };
+  expect(upload.status(), JSON.stringify(accepted)).toBe(202);
+
+  const completed = await waitForJob(page, accepted.jobId);
+  expect(completed.status).toBe("COMPLETED");
+  expect(completed.totalFound).toBe(options.expectedQuestions);
+  expect(completed.totalFailed).toBe(0);
+  const processingMs = Date.parse(String(completed.finishedAt)) - Date.parse(String(completed.startedAt));
+  expect(processingMs).toBeGreaterThanOrEqual(0);
+  expect(processingMs).toBeLessThanOrEqual(180_000);
+  console.info(`[ENADE oficial ${options.year}] worker processou ${options.expectedQuestions} questões em ${processingMs} ms`);
+
+  const questions = await prisma.question.findMany({ where: { editionId: accepted.edition.id }, include: { options: true } });
+  expect(questions).toHaveLength(options.expectedQuestions);
+  expect(questions.every((question) => question.options.length === 5)).toBe(true);
+
+  return { editionId: accepted.edition.id, uploadPath: accepted.edition.filePath, processingMs };
+}
+
 test("admin importa PDF, aplica gabarito e worker reexecuta sem duplicar questoes", async ({ page }) => {
   test.setTimeout(120_000);
   const email = `e2e-admin-${randomUUID()}@example.test`;
@@ -31,9 +60,11 @@ test("admin importa PDF, aplica gabarito e worker reexecuta sem duplicar questoe
   let workerOutput = "";
   let editionId: string | undefined;
   let officialEditionId: string | undefined;
+  let official2021EditionId: string | undefined;
   let uploadPath: string | undefined;
   let answerKeyPath: string | undefined;
   let officialUploadPath: string | undefined;
+  let official2021UploadPath: string | undefined;
   let officialAnswerKeyPath: string | undefined;
 
   try {
@@ -113,57 +144,52 @@ test("admin importa PDF, aplica gabarito e worker reexecuta sem duplicar questoe
     expect(retried.totalFailed).toBe(0);
     expect(await prisma.question.count({ where: { editionId } })).toBe(questionCountBeforeRetry);
 
-    const officialProofPath = ".local/official-enade/enade-2023-engenharia-computacao.pdf";
-    const officialKeyPath = ".local/official-enade/gabarito-2023-engenharia-computacao.pdf";
-    if (existsSync(officialProofPath) && existsSync(officialKeyPath)) {
-      const [officialProof, officialKeyDocument] = await Promise.all([
-        readFile(officialProofPath),
-        readFile(officialKeyPath).then((buffer) => pdfParse(buffer)),
-      ]);
-      const officialKeyCsv = [...officialKeyDocument.text.matchAll(/QUEST[AÃ]O\s+(\d{1,2})\s+([A-E])/gi)]
-        .map((match) => `${match[1]}; ${match[2]}`)
-        .join("\n");
-      expect(officialKeyCsv.split("\n")).toHaveLength(38);
+    const officialProofPath = "data/official-enade/2023-engenharia-computacao/enade-2023-engenharia-computacao.pdf";
+    const officialKeyPath = "data/official-enade/2023-engenharia-computacao/gabarito-2023-engenharia-computacao.pdf";
+    const [officialProof, officialKeyDocument] = await Promise.all([
+      readFile(officialProofPath),
+      readFile(officialKeyPath).then((buffer) => pdfParse(buffer)),
+    ]);
+    const officialKeyCsv = [...officialKeyDocument.text.matchAll(/QUEST[AÃ]O\s+(\d{1,2})\s+([A-E])/gi)]
+      .map((match) => `${match[1]}; ${match[2]}`)
+      .join("\n");
+    expect(officialKeyCsv.split("\n")).toHaveLength(38);
 
-      const officialUpload = await page.request.post("/api/admin/imports", {
-        multipart: {
-          year: "2023",
-          area: `E2E Engenharia da Computação ${randomUUID()}`,
-          file: { name: "enade-2023-engenharia-computacao.pdf", mimeType: "application/pdf", buffer: officialProof },
-        },
-      });
-      const officialAccepted = await officialUpload.json() as { jobId: string; edition: { id: string; filePath: string } };
-      expect(officialUpload.status(), JSON.stringify(officialAccepted)).toBe(202);
-      officialEditionId = officialAccepted.edition.id;
-      officialUploadPath = officialAccepted.edition.filePath;
+    const official2023 = await importOfficialExam(page, {
+      year: 2023,
+      area: `E2E Engenharia da Computação ${randomUUID()}`,
+      fileName: "enade-2023-engenharia-computacao.pdf",
+      buffer: officialProof,
+      expectedQuestions: 38,
+    });
+    officialEditionId = official2023.editionId;
+    officialUploadPath = official2023.uploadPath;
 
-      const officialCompleted = await waitForJob(page, officialAccepted.jobId);
-      expect(officialCompleted.status).toBe("COMPLETED");
-      expect(officialCompleted.totalFound).toBe(38);
-      expect(officialCompleted.totalFailed).toBe(0);
-      const processingMs = Date.parse(String(officialCompleted.finishedAt)) - Date.parse(String(officialCompleted.startedAt));
-      expect(processingMs).toBeGreaterThanOrEqual(0);
-      expect(processingMs).toBeLessThanOrEqual(180_000);
-      console.info(`[ENADE oficial] worker processou 38 questões em ${processingMs} ms`);
-      const officialQuestions = await prisma.question.findMany({ where: { editionId: officialEditionId }, include: { options: true } });
-      expect(officialQuestions).toHaveLength(38);
-      expect(officialQuestions.every((question) => question.options.length === 5)).toBe(true);
+    const officialKeyUpload = await page.request.post("/api/admin/answer-keys", {
+      multipart: {
+        editionId: officialEditionId,
+        file: { name: "gabarito-oficial.csv", mimeType: "text/csv", buffer: Buffer.from(officialKeyCsv) },
+      },
+    });
+    const officialKeyResult = await officialKeyUpload.json();
+    expect(officialKeyUpload.status(), JSON.stringify(officialKeyResult)).toBe(200);
+    expect(officialKeyResult).toEqual({ updated: 38, provided: 38 });
+    officialAnswerKeyPath = (await prisma.edition.findUniqueOrThrow({ where: { id: officialEditionId } })).answerKeyPath ?? undefined;
+    const keyedOfficialQuestions = await prisma.question.findMany({ where: { editionId: officialEditionId } });
+    expect(keyedOfficialQuestions.filter((question) => question.correctOption).length).toBe(38);
+    expect(keyedOfficialQuestions.find((question) => question.originalNumber === 1)?.correctOption).toBe("D");
+    expect(keyedOfficialQuestions.find((question) => question.originalNumber === 38)?.correctOption).toBe("A");
 
-      const officialKeyUpload = await page.request.post("/api/admin/answer-keys", {
-        multipart: {
-          editionId: officialEditionId,
-          file: { name: "gabarito-oficial.csv", mimeType: "text/csv", buffer: Buffer.from(officialKeyCsv) },
-        },
-      });
-      const officialKeyResult = await officialKeyUpload.json();
-      expect(officialKeyUpload.status(), JSON.stringify(officialKeyResult)).toBe(200);
-      expect(officialKeyResult).toEqual({ updated: 38, provided: 38 });
-      officialAnswerKeyPath = (await prisma.edition.findUniqueOrThrow({ where: { id: officialEditionId } })).answerKeyPath ?? undefined;
-      const keyedOfficialQuestions = await prisma.question.findMany({ where: { editionId: officialEditionId } });
-      expect(keyedOfficialQuestions.filter((question) => question.correctOption).length).toBe(38);
-      expect(keyedOfficialQuestions.find((question) => question.originalNumber === 1)?.correctOption).toBe("D");
-      expect(keyedOfficialQuestions.find((question) => question.originalNumber === 38)?.correctOption).toBe("A");
-    }
+    const official2021Proof = await readFile("data/official-enade/2021-sistemas-informacao/prova-2021-sistemas-informacao.pdf");
+    const official2021 = await importOfficialExam(page, {
+      year: 2021,
+      area: `E2E Sistemas de Informação ${randomUUID()}`,
+      fileName: "prova-2021-sistemas-informacao.pdf",
+      buffer: official2021Proof,
+      expectedQuestions: 35,
+    });
+    official2021EditionId = official2021.editionId;
+    official2021UploadPath = official2021.uploadPath;
 
     expect(workerOutput).not.toMatch(/Error:|Falha ao salvar/);
   } finally {
@@ -174,9 +200,11 @@ test("admin importa PDF, aplica gabarito e worker reexecuta sem duplicar questoe
     }
     if (editionId) await prisma.edition.deleteMany({ where: { id: editionId } });
     if (officialEditionId) await prisma.edition.deleteMany({ where: { id: officialEditionId } });
+    if (official2021EditionId) await prisma.edition.deleteMany({ where: { id: official2021EditionId } });
     if (uploadPath) await import("node:fs/promises").then(({ unlink }) => unlink(uploadPath!).catch(() => undefined));
     if (answerKeyPath) await import("node:fs/promises").then(({ unlink }) => unlink(answerKeyPath!).catch(() => undefined));
     if (officialUploadPath) await import("node:fs/promises").then(({ unlink }) => unlink(officialUploadPath!).catch(() => undefined));
+    if (official2021UploadPath) await import("node:fs/promises").then(({ unlink }) => unlink(official2021UploadPath!).catch(() => undefined));
     if (officialAnswerKeyPath) await import("node:fs/promises").then(({ unlink }) => unlink(officialAnswerKeyPath!).catch(() => undefined));
     await prisma.user.deleteMany({ where: { email } });
   }

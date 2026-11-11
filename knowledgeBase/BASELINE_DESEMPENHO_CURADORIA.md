@@ -1,35 +1,36 @@
 # Baseline local de desempenho da curadoria
 
-Medicoes exploratorias repetidas em 10/11/2026 contra Next.js em modo desenvolvimento e PostgreSQL portatil local. O tempo inclui a ida e volta HTTP local para cada operacao autenticada.
+Medicao de 11/11/2026 contra Next.js em modo desenvolvimento e PostgreSQL portatil local. O tempo inclui a ida e volta HTTP local para cada operacao autenticada via `page.request` do Playwright.
+
+## Meta PA-02
+
+- p95 de publicar e descartar <= 500 ms com 1.000+ questoes revisadas.
+- p95 em alto volume <= p95 em baixo volume + 200 ms.
+- 30 amostras por acao em cada volume, apos aquecimento.
+- Medicao local, sem carga controlada; nao representa SLA de producao.
 
 ## Metodo
 
 - Uma edicao iniciou com tres questoes revisadas.
-- Foram feitas 15 operacoes de publicar e 15 de descartar, sequenciais em cada rodada. A primeira amostra de cada rodada iniciou com tres questoes revisadas e terminou com 33.
-- Foram adicionadas outras 1.000 questoes publicadas na mesma edicao.
-- Cada amostra de volume alto iniciou com 1.033 questoes revisadas e terminou com 1.063.
-- O benchmark foi executado tres vezes para observar a variacao entre rodadas.
-- Cada questao da amostra tinha cinco alternativas. Todas as respostas HTTP tiveram sucesso.
+- Foram executadas 10 operacoes de aquecimento (5 publicar e 5 descartar), descartadas da estatistica.
+- Volume baixo: 60 questoes pendentes (30 publicar e 30 descartar), iniciando com 3 revisadas e terminando com 63.
+- Foram adicionadas 1.000 questoes publicadas na mesma edicao.
+- Volume alto: 60 questoes pendentes (30 publicar e 30 descartar), iniciando com 1.063 revisadas e terminando com 1.123.
+- Cada questao tinha cinco alternativas e `correctOption` quando necessario. Todas as respostas HTTP retornaram `200`.
 
 ## Resultados
 
 Tempos em milissegundos:
 
-| Rodada | Acao | Questoes revisadas no inicio | p50 | p95 |
-| --- | --- | ---: | ---: | ---: |
-| 1 | Publicar | 3 | 71,5 | 139,8 |
-| 1 | Publicar | 1.033 | 86,2 | 185,1 |
-| 1 | Descartar | 3 | 65,4 | 90,3 |
-| 1 | Descartar | 1.033 | 59,7 | 178,6 |
-| 2 | Publicar | 3 | 63,6 | 211,3 |
-| 2 | Publicar | 1.033 | 70,4 | 107,3 |
-| 2 | Descartar | 3 | 75,3 | 127,4 |
-| 2 | Descartar | 1.033 | 132,3 | 214,3 |
-| 3 | Publicar | 3 | 76,1 | 104,0 |
-| 3 | Publicar | 1.033 | 76,7 | 110,8 |
-| 3 | Descartar | 3 | 71,8 | 233,5 |
-| 3 | Descartar | 1.033 | 89,8 | 168,1 |
+| Volume | Questoes revisadas no inicio | Acao | p50 | p95 |
+| --- | ---: | --- | ---: | ---: |
+| Baixo | 3 | Publicar | 33,1 | 41,7 |
+| Baixo | 3 | Descartar | 33,3 | 40,7 |
+| Alto | 1.063 | Publicar | 33,1 | 63,5 |
+| Alto | 1.063 | Descartar | 33,5 | 59,9 |
 
-As medianas de publicar ficaram quase iguais na terceira rodada; as duas primeiras variaram em sentidos diferentes. Descartar teve maior mediana no volume alto nas rodadas 2 e 3, mas os p95 foram maiores no volume baixo na terceira rodada. Cada percentil usa apenas 15 observacoes, em ambiente local compartilhado e sem carga controlada; nao e possivel atribuir as variacoes ao volume ou certificar uma meta de producao.
+Deltas de p95 do alto em relacao ao baixo: publicar +21,9 ms; descartar +19,3 ms.
 
-O resultado serve como ponto inicial para comparar implementacoes. PA-02 continua pendente: a equipe precisa definir um limite numerico e repetir a medicao em ambiente representativo, com mais amostras e carga controlada.
+## Conclusao
+
+A meta PA-02 passou nesta medicao: os p95 ficaram abaixo de 500 ms e os deltas ficaram abaixo de 200 ms. A execucao e automatizada em `tests/e2e/admin-curation-and-mobile.spec.ts` e grava `.local/curation-benchmark.json` (ignorado pelo Git). O resultado ainda e local e sem carga controlada; repetir em ambiente representativo antes de tratar como garantia de producao.

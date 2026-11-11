@@ -74,7 +74,7 @@ O objetivo do produto, conforme as histórias do Product Backlog, é permitir qu
 
 ## 1.3 Métricas de sucesso
 
-Os documentos de partida não definem métricas de sucesso do produto (por exemplo, volume de uso ou taxa de acerto da extração). Elas ficam registradas como pendência (PA-01) e não foram estimadas neste documento. As únicas metas numéricas existentes estão em RNF-01 (extração em até 3 minutos).
+Os documentos de partida não definem métricas de sucesso do produto (por exemplo, volume de uso ou taxa de acerto da extração). Elas ficam registradas como pendência (PA-01) e não foram estimadas neste documento. As metas numéricas existentes são RNF-01 (extração em até 3 minutos) e PA-02/RNF-02 (p95 de publicar/descartar em até 500 ms com 1.000+ questões revisadas).
 
 ## 1.4 Premissas e restrições
 
@@ -483,7 +483,7 @@ Cada módulo começa com um quadro-resumo e segue com a ficha de cada requisito:
 | RF-QLD-03 | As senhas dos usuários devem ser armazenadas de forma protegida (hash seguro), nunca em texto puro nem com criptografia reversível. | Todos os usuários | Alta | BKL PB10 (critério 1) |
 | RF-QLD-04 | O arquivo PDF original de cada prova importada deve ser preservado no sistema, permitindo consulta posterior com acesso controlado pelo backend. | Administrador | Alta | BKL PB10 (critério 2) |
 | RF-QLD-05 | As telas destinadas ao aluno devem ser responsivas, adaptando-se corretamente a smartphones. | Aluno | Média | BKL PB11 |
-| RF-QLD-06 | As ações de publicar e descartar uma questão na tela de revisão devem responder em tempo curto, que não aumente com o volume de questões já revisadas. A meta numérica está pendente (PA-02). | Administrador | Média | BKL PB12 |
+| RF-QLD-06 | As ações de publicar e descartar uma questão na tela de revisão devem responder em tempo curto, que não aumente com o volume de questões já revisadas. Meta: p95 <= 500 ms com 1.000+ questões revisadas e p95 de alto volume <= p95 de baixo volume + 200 ms (PA-02). | Administrador | Média | BKL PB12 |
 
 ### RF-QLD-01 — Extração em segundo plano
 
@@ -549,22 +549,22 @@ Cada módulo começa com um quadro-resumo e segue com a ficha de cada requisito:
 
 | **Campo** | **Conteúdo** |
 | --- | --- |
-| **Descrição** | As ações de publicar e descartar uma questão na tela de revisão devem responder em tempo curto, que não aumente com o volume de questões já revisadas. A meta numérica está pendente (PA-02). |
+| **Descrição** | As ações de publicar e descartar uma questão na tela de revisão devem responder em tempo curto, que não aumente com o volume de questões já revisadas. Meta: p95 <= 500 ms com 1.000+ questões revisadas e p95 de alto volume <= p95 de baixo volume + 200 ms (PA-02). |
 | **Ator / prioridade** | Administrador · Média |
 | **Origem** | BKL PB12; VF 4.3 |
 | **Entradas de dados** | Questão; ação (publicar ou descartar). |
 | **Regras de negócio** | RN-15: O tempo de resposta de publicar e descartar uma questão não cresce com o volume de questões já revisadas na prova. |
 | **Saídas** | Ação concluída com feedback imediato. |
-| **Critérios de aceite** | 1\. Publicar ou descartar — a resposta é rápida<br>2. Prova com muitas questões já revisadas — o tempo de resposta não aumenta |
+| **Critérios de aceite** | 1\. Publicar ou descartar — p95 <= 500 ms com 1.000+ questões revisadas<br>2. Prova com muitas questões já revisadas — p95 de alto volume <= p95 de baixo volume + 200 ms |
 
 # 7. Requisitos não funcionais
 
-Metas numéricas só existem onde o Backlog ou o VF as trazem. Onde o documento de origem diz apenas “rápido” ou “curto”, a meta fica pendente (PA-02).
+Metas numéricas só existem onde o Backlog ou o VF as trazem. Onde o documento de origem diz apenas “rápido” ou “curto”, a meta foi definida em PA-02.
 
 | **ID** | **Categoria** | **Descrição** | **Critério de verificação** | **Origem** |
 | --- | --- | --- | --- | --- |
 | RNF-01 | Desempenho | O processamento de um PDF de prova deve ser concluído em até 3 minutos. | Medir o tempo de extração em provas reais contra o limite de 3 minutos (Sprint 6). O limite não é garantido pela biblioteca de fila. | BKL PB09; VF 3.2, Sprint 6 |
-| RNF-02 | Desempenho | Publicar e descartar questões respondem em tempo curto, que não cresce com o volume de questões já revisadas. | Operações pontuais por identificador, índices adequados e medição com volume maior (Sprints 5 e 6). Meta numérica: PA-02. | BKL PB12; VF 6 |
+| RNF-02 | Desempenho | Publicar e descartar questões respondem em tempo curto, que não cresce com o volume de questões já revisadas. | Operações pontuais por identificador, índices adequados e medição com volume maior (Sprints 5 e 6). Meta: p95 <= 500 ms com 1.000+ questões revisadas; alto volume não pode exceder o baixo volume em mais de 200 ms (PA-02). | BKL PB12; VF 6 |
 | RNF-03 | Disponibilidade | A extração roda em segundo plano, em processo worker separado da aplicação web, sem bloquear o uso do sistema. | Enviar uma prova e continuar usando as telas do administrador durante o processamento. | BKL PB09; VF 2.4 |
 | RNF-04 | Segurança | A autorização por perfil é verificada no backend em cada operação protegida. | Testes de permissões e de integração com perfil sem permissão (Vitest); revisão das permissões na Sprint 6. | VF 2.2, 3.3 |
 | RNF-05 | Segurança | Senhas com hash seguro (via Better Auth); nunca em texto puro nem com criptografia reversível. | Validar o hash das senhas na Sprint 6. | BKL PB10; VF 2.2 |
@@ -780,7 +780,6 @@ Seção sugerida no VF, sem origem nos materiais de partida; pode ser ajustada o
 | **ID** | **Pergunta** | **Afeta** |
 | --- | --- | --- |
 | PA-01 | Quais são as métricas de sucesso do produto? Os documentos de partida não as definem. | Seção 1.3 |
-| PA-02 | Qual é a meta numérica de “tempo curto” para publicar e descartar questões (PB12)? | RF-QLD-06, RNF-02 |
 | PA-03 | Recalibrar os SP de cada sprint após o Planning Poker. | Seção 10 |
 | PA-04 | Confirmar a tela de login com o Frontend administrador ou trocar para o Frontend aluno. | RF-ACS-01 |
 | PA-05 | Escolher as provas reais do ENADE usadas nos testes de extração. | RF-IMP-02, RNF-01 |
@@ -801,3 +800,4 @@ Seção sugerida no VF, sem origem nos materiais de partida; pode ser ajustada o
 | PB10 | Hash de senha com o Backend (Better Auth); preservação do PDF original com a extração | VF 1.3 |
 | Tela de login (PB08) | Frontend administrador (sugestão para equilibrar a carga); pode ser trocada | VF 1.3 |
 | Armazenamento de PDFs | Volume Docker ou diretório local em desenvolvimento; R2 opcional | VF 2.5 |
+| PA-02 / PB12 | p95 de publicar/descartar <= 500 ms com 1.000+ questões revisadas; p95 de alto volume <= p95 de baixo volume + 200 ms. Medição local com 30 amostras por ação e aquecimento. | Decisão da equipe em 11/11/2026 |

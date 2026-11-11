@@ -44,6 +44,9 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
     const questionToPublish = await createPendingQuestion(1);
     const annulledQuestion = await createPendingQuestion(2, true);
     const questionToDiscard = await createPendingQuestion(3);
+    const uiPublishQuestion = await createPendingQuestion(4);
+    await prisma.question.update({ where: { id: uiPublishQuestion.id }, data: { correctOption: "A" } });
+    const uiDiscardQuestion = await createPendingQuestion(5);
 
     await page.getByRole("button", { name: "Revisar questões" }).click();
     await page.getByPlaceholder("Buscar questão, área ou ano").fill(questionToPublish.statement);
@@ -86,6 +89,17 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
       data: { statement: "Late edit", options: options.map((text, index) => ({ label: String.fromCharCode(65 + index), text })), correctOption: "B" },
     })).status()).toBe(404);
 
+    await page.getByPlaceholder("Buscar questão, área ou ano").fill(uiPublishQuestion.statement);
+    await page.getByRole("button", { name: "Publicar", exact: true }).click();
+    await expect(page.getByText("Questão publicada para os estudantes.")).toBeVisible();
+    await expect(page.getByText("Nenhuma questão para revisar")).toBeVisible();
+
+    await page.getByPlaceholder("Buscar questão, área ou ano").fill(uiDiscardQuestion.statement);
+    await page.getByTitle("Descartar").click();
+    await expect(page.getByText("Questão descartada.")).toBeVisible();
+    await expect(page.getByText("Nenhuma questão para revisar")).toBeVisible();
+    await prisma.question.deleteMany({ where: { id: { in: [uiPublishQuestion.id, uiDiscardQuestion.id] } } });
+
     const createQuestionBatch = async (firstNumber: number, count: number, status: "PENDING" | "PUBLISHED") => {
       await prisma.question.createMany({ data: Array.from({ length: count }, (_, index) => ({
         editionId: edition.id,
@@ -102,7 +116,7 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
       return created.map(({ id }) => id);
     };
     const measureCuration = async (ids: string[]) => {
-      const samples: { action: string; milliseconds: number }[] = [];
+      const samples: { action: "publish" | "discard"; milliseconds: number }[] = [];
       for (const [index, id] of ids.entries()) {
         const action = index < ids.length / 2 ? "publish" : "discard";
         const started = performance.now();
@@ -111,19 +125,33 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
         samples.push({ action, milliseconds: performance.now() - started });
       }
       const percentile = (values: number[], p: number) => [...values].sort((a, b) => a - b)[Math.ceil(values.length * p) - 1];
-      return Object.fromEntries(["publish", "discard"].map((action) => {
+      const summarize = (action: "publish" | "discard") => {
         const values = samples.filter((sample) => sample.action === action).map((sample) => sample.milliseconds);
-        return [action, { p50: percentile(values, 0.5), p95: percentile(values, 0.95) }];
-      }));
+        return { p50: percentile(values, 0.5), p95: percentile(values, 0.95) };
+      };
+      return { publish: summarize("publish"), discard: summarize("discard") };
     };
 
-    const lowVolumeIds = await createQuestionBatch(100, 30, "PENDING");
+    const warmupIds = await createQuestionBatch(50, 10, "PENDING");
+    await measureCuration(warmupIds);
+    await prisma.question.deleteMany({ where: { id: { in: warmupIds } } });
+
+    const lowVolumeIds = await createQuestionBatch(100, 60, "PENDING");
     const lowVolume = await measureCuration(lowVolumeIds);
     await createQuestionBatch(10_000, 1_000, "PUBLISHED");
-    const highVolumeIds = await createQuestionBatch(200, 30, "PENDING");
+    const highVolumeIds = await createQuestionBatch(200, 60, "PENDING");
     const highVolume = await measureCuration(highVolumeIds);
-    console.info(`[RF-QLD-06] 3 reviewed: ${JSON.stringify(lowVolume)}; 1033 reviewed: ${JSON.stringify(highVolume)}`);
-    await writeFile(".local/curation-benchmark.json", JSON.stringify({ measuredAt: new Date().toISOString(), lowVolume, highVolume }, null, 2));
+    const target = { maxP95: 500, maxIncrease: 200, samplesPerAction: 30 };
+    const deltas = {
+      publish: highVolume.publish.p95 - lowVolume.publish.p95,
+      discard: highVolume.discard.p95 - lowVolume.discard.p95,
+    };
+    await writeFile(".local/curation-benchmark.json", JSON.stringify({ measuredAt: new Date().toISOString(), target, lowVolume, highVolume, deltas }, null, 2));
+    console.info(`[RF-QLD-06] target p95<=${target.maxP95}ms, delta<=${target.maxIncrease}ms; low: ${JSON.stringify(lowVolume)}; high: ${JSON.stringify(highVolume)}; deltas: ${JSON.stringify(deltas)}`);
+    expect(highVolume.publish.p95, "p95 de publicar em alto volume").toBeLessThanOrEqual(target.maxP95);
+    expect(highVolume.discard.p95, "p95 de descartar em alto volume").toBeLessThanOrEqual(target.maxP95);
+    expect(deltas.publish, "aumento de p95 ao publicar em alto volume").toBeLessThanOrEqual(target.maxIncrease);
+    expect(deltas.discard, "aumento de p95 ao descartar em alto volume").toBeLessThanOrEqual(target.maxIncrease);
 
   } finally {
     if (editionId) await prisma.edition.deleteMany({ where: { id: editionId } });

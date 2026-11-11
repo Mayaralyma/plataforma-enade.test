@@ -13,6 +13,33 @@ test.afterAll(async () => {
 });
 
 test("estudante se cadastra, tem acesso restrito e conclui um simulado", async ({ page }) => {
+  test.setTimeout(60_000);
+  const expectNoHorizontalOverflow = async (label: string) => {
+    const overflow = await page.evaluate(() => {
+      const root = document.documentElement;
+      const body = document.body;
+      return Math.max(root.scrollWidth - root.clientWidth, body.scrollWidth - body.clientWidth);
+    });
+    expect(overflow, `${label} não deve ter overflow horizontal`).toBeLessThanOrEqual(1);
+  };
+  const expectElementFits = async (selector: string, label: string) => {
+    const metrics = await page.locator(selector).first().evaluate((element) => ({
+      scrollWidth: element.scrollWidth,
+      clientWidth: element.clientWidth,
+    }));
+    expect(metrics.scrollWidth, `${label} não deve ter conteúdo cortado`).toBeLessThanOrEqual(metrics.clientWidth + 1);
+  };
+  const screenshot = async (name: string) => page.screenshot({ path: `.local/${name}.png`, animations: "disabled" });
+  const expectControlInViewport = async (name: string | RegExp) => {
+    const control = page.getByRole("button", { name });
+    await expect(control).toBeInViewport();
+    const box = await control.boundingBox();
+    const viewportWidth = page.viewportSize()?.width ?? 0;
+    if (!box) throw new Error(`Controle não encontrado: ${String(name)}`);
+    expect(box.x).toBeGreaterThanOrEqual(-1);
+    expect(box.x + box.width).toBeLessThanOrEqual(viewportWidth + 1);
+  };
+
   const pdfEdition = await prisma.edition.create({ data: {
     year: 2100,
     area: `E2E protected PDF ${randomUUID()}`,
@@ -30,6 +57,13 @@ test("estudante se cadastra, tem acesso restrito e conclui um simulado", async (
   await page.getByRole("button", { name: "Criar minha conta" }).click();
   await expect(page.getByRole("heading", { name: /Aprender é uma jornada/ })).toBeVisible({ timeout: 20_000 });
 
+  const student = await prisma.user.findUniqueOrThrow({ where: { email: studentEmail }, include: { accounts: true } });
+  const credentialAccount = student.accounts.find((account) => account.providerId === "credential");
+  expect(credentialAccount).toBeTruthy();
+  const storedPassword = credentialAccount?.password ?? "";
+  expect(storedPassword).not.toBe("Enade-test-2026!");
+  expect(storedPassword).toMatch(/^[0-9a-f]{32}:[0-9a-f]{128}$/);
+
   const protectedResponse = await page.request.get("/api/admin/imports");
   expect(protectedResponse.status()).toBe(403);
   const protectedPdfResponse = await page.request.get(`/api/admin/files/${pdfEdition.id}`);
@@ -38,20 +72,37 @@ test("estudante se cadastra, tem acesso restrito e conclui um simulado", async (
   await page.setViewportSize({ width: 375, height: 812 });
   await expect(page.locator(".sidebar")).not.toHaveClass(/sidebar-open/);
   await expect(page.locator(".mobile-backdrop")).toHaveCount(0);
-  await page.screenshot({ path: ".local/student-dashboard-mobile-375.png", animations: "disabled" });
-  const mobileDocumentWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-  expect(mobileDocumentWidth).toBeLessThanOrEqual(375);
+  await expectNoHorizontalOverflow("prática mobile");
+  await screenshot("student-dashboard-mobile-375");
+  await page.getByRole("button", { name: "Abrir menu" }).click();
+  await expect(page.locator(".sidebar")).toHaveClass(/sidebar-open/);
+  await expect(page.locator(".mobile-backdrop")).toBeVisible();
+  await expectNoHorizontalOverflow("menu mobile");
+  await expectElementFits(".sidebar", "menu lateral mobile");
+  await screenshot("student-menu-mobile-375");
+  await page.locator(".mobile-backdrop").click({ position: { x: 360, y: 400 } });
+  await expect(page.locator(".sidebar")).not.toHaveClass(/sidebar-open/);
+  await expect(page.locator(".mobile-backdrop")).toHaveCount(0);
   await page.setViewportSize({ width: 768, height: 1024 });
-  await page.screenshot({ path: ".local/student-dashboard-tablet-768.png", animations: "disabled" });
-  const tabletDocumentWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-  expect(tabletDocumentWidth).toBeLessThanOrEqual(768);
-  await page.setViewportSize({ width: 1280, height: 900 });
+  await expectNoHorizontalOverflow("prática tablet");
+  await screenshot("student-dashboard-tablet-768");
 
   await expect(page.getByRole("heading", { name: "Escolha seu próximo simulado" })).toBeVisible();
+  await page.setViewportSize({ width: 375, height: 812 });
+  await expectNoHorizontalOverflow("prática mobile antes do simulado");
+  await screenshot("student-practice-mobile-375");
   const simulationCreated = page.waitForResponse((response) => response.url().endsWith("/api/simulations") && response.request().method() === "POST" && response.status() === 201);
   await page.getByRole("button", { name: "Começar simulado" }).first().click();
   const simulationId = (await (await simulationCreated).json()).id as string;
   await expect(page.getByRole("heading", { name: /Qual prática ajuda/ })).toBeVisible();
+  await expectNoHorizontalOverflow("simulado mobile");
+  await expectElementFits(".topbar", "cabeçalho do simulado mobile");
+  await expectElementFits(".sim-question", "questão mobile");
+  await expectElementFits(".sim-navigator", "navegador mobile");
+  await expectElementFits(".sim-controls", "controles do simulado mobile");
+  await screenshot("student-simulation-mobile-375");
+  await expectControlInViewport("Anterior");
+  await expectControlInViewport("Próxima questão");
 
   const chooseAndWait = async (index: number) => {
     const saved = page.waitForResponse((response) => response.url().includes("/api/simulations/") && response.request().method() === "PATCH" && response.status() === 200);
@@ -60,17 +111,58 @@ test("estudante se cadastra, tem acesso restrito e conclui um simulado", async (
   };
 
   await chooseAndWait(0);
+  await expectControlInViewport("Próxima questão");
   await page.getByRole("button", { name: "Próxima questão" }).click();
   await expect(page.getByRole("heading", { name: /qual camada deve validar permissões/i })).toBeVisible();
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await expectNoHorizontalOverflow("simulado tablet");
+  await expectElementFits(".sim-question", "questão tablet");
+  await expectElementFits(".sim-navigator", "navegador tablet");
+  await expectElementFits(".sim-controls", "controles do simulado tablet");
+  await screenshot("student-simulation-tablet-768");
   await chooseAndWait(2);
   await page.getByRole("button", { name: "Próxima questão" }).click();
   await expect(page.getByRole("heading", { name: /vantagem de processar tarefas demoradas/i })).toBeVisible();
+  await page.setViewportSize({ width: 1280, height: 900 });
   await chooseAndWait(0);
 
   page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: "Finalizar simulado" }).click();
   await expect(page.getByRole("heading", { name: "Mais um passo na sua preparação." })).toBeVisible();
   await expect(page.getByText("100%", { exact: true })).toBeVisible();
+  await page.setViewportSize({ width: 375, height: 812 });
+  await expectNoHorizontalOverflow("resultado mobile");
+  await expectElementFits(".result-hero", "destaque do resultado mobile");
+  await expectElementFits(".result-summary", "resumo do resultado mobile");
+  await expectControlInViewport(/Voltar ao histórico/);
+  await screenshot("student-result-mobile-375");
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await expectNoHorizontalOverflow("resultado tablet");
+  await expectElementFits(".result-hero", "destaque do resultado tablet");
+  await expectElementFits(".result-summary", "resumo do resultado tablet");
+  await screenshot("student-result-tablet-768");
+
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.getByRole("button", { name: /Voltar ao histórico/ }).click();
+  await expect(page.getByRole("heading", { name: "Meu histórico" })).toBeVisible();
+  await expectNoHorizontalOverflow("histórico mobile");
+  await expectElementFits(".history-card", "cartão do histórico mobile");
+  await expectControlInViewport(/Ver resultado/);
+  await screenshot("student-history-mobile-375");
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await expectNoHorizontalOverflow("histórico tablet");
+  await expectElementFits(".history-card", "cartão do histórico tablet");
+  await screenshot("student-history-tablet-768");
+
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.getByRole("button", { name: /Ver resultado/ }).first().click();
+  await expect(page.getByRole("heading", { name: "Mais um passo na sua preparação." })).toBeVisible();
+  await expectNoHorizontalOverflow("resultado do histórico mobile");
+  await expectElementFits(".result-hero", "destaque do histórico mobile");
+  await expectElementFits(".result-summary", "resumo do histórico mobile");
+  await expectControlInViewport(/Voltar ao histórico/);
+  await screenshot("student-history-result-mobile-375");
+  await page.setViewportSize({ width: 1280, height: 900 });
 
   const ownHistory = await page.request.get("/api/simulations");
   expect(ownHistory.status()).toBe(200);
