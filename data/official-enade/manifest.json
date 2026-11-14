@@ -1,0 +1,103 @@
+{
+  "fixtures": [
+    {
+      "id": "2021-sistemas-informacao",
+      "year": 2021,
+      "area": "Sistemas de Informação",
+      "proof": "2021-sistemas-informacao/prova-2021-sistemas-informacao.pdf",
+      "answerKey": "2021-sistemas-informacao/gabarito-2021-sistemas-informacao.pdf",
+      "expectedProofPages": 40,
+      "expectedAnswerKeyPages": 1,
+      "annulled": [33],
+      "expectedVisualReview": [2, 3, 5, 9, 10, 28, 29, 32, 33],
+      "checks": [
+        { "type": "statementContains", "question": 1, "values": ["atingissem", "estimativa"] },
+        { "type": "questionTextContains", "question": 2, "values": ["estético", "alternativas"] },
+        { "type": "questionTextContains", "question": 4, "values": ["tipo de trabalho", "Garantia", "ficam"] },
+        { "type": "questionTextContains", "question": 6, "values": ["latinos", "intensificando", "verificou"] },
+        { "type": "questionTextContains", "question": 7, "values": ["Estima-se", "decodificada", "última", "profilaxias"] },
+        { "type": "optionEquals", "question": 8, "option": "E", "value": "II, III e IV." },
+        { "type": "optionEquals", "question": 9, "option": "E", "value": "I, III e IV." },
+        { "type": "optionEquals", "question": 10, "option": "E", "value": "I, II e IV." },
+        { "type": "statementContains", "question": 21, "values": ["E.QuantidadeEmbarque > 100"] },
+        { "type": "statementContains", "question": 31, "values": ["Uma das finalidades da Governança"] }
+      ]
+    },
+    {
+      "id": "2021-ciencia-computacao",
+      "year": 2021,
+      "area": "Ciência da Computação",
+      "proof": "2021-ciencia-computacao/prova-2021-ciencia-computacao.pdf",
+      "answerKey": "2021-ciencia-computacao/gabarito-2021-ciencia-computacao.pdf",
+      "expectedProofPages": 48,
+      "expectedAnswerKeyPages": 1,
+      "expectedVisualReview": [2, 3, 5, 11, 14, 16, 17, 21, 22, 23, 27, 28, 31],
+      "checks": [
+        { "type": "optionEquals", "question": 14, "option": "C", "value": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa." },
+        { "type": "optionEquals", "question": 14, "option": "E", "value": "As asserções I e II são proposições falsas." }
+      ]
+    },
+    {
+      "id": "2021-licenciatura-computacao",
+      "year": 2021,
+      "area": "Computação (Licenciatura)",
+      "proof": "2021-licenciatura-computacao/prova-2021-licenciatura-computacao.pdf",
+      "answerKey": "2021-licenciatura-computacao/gabarito-2021-licenciatura-computacao.pdf",
+      "expectedProofPages": 40,
+      "expectedAnswerKeyPages": 1,
+      "expectedVisualReview": [2, 3, 5, 11, 14, 16, 17, 21, 22, 23],
+      "checks": [
+        { "type": "optionEquals", "question": 14, "option": "C", "value": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa." },
+        { "type": "optionEquals", "question": 14, "option": "E", "value": "As asserções I e II são proposições falsas." }
+      ]
+    },
+    {
+      "id": "2021-analise-desenvolvimento-sistemas",
+      "year": 2021,
+      "area": "Análise e Desenvolvimento de Sistemas",
+      "proof": "2021-analise-desenvolvimento-sistemas/prova-2021-analise-desenvolvimento-sistemas.pdf",
+      "answerKey": "2021-analise-desenvolvimento-sistemas/gabarito-2021-analise-desenvolvimento-sistemas.pdf",
+      "expectedProofPages": 48,
+      "expectedAnswerKeyPages": 1,
+      "expectedVisualReview": [2, 3, 5, 15, 16, 17, 23, 27, 29, 31, 35],
+      "checks": []
+    },
+    {
+      "id": "2021-gestao-tecnologia-informacao",
+      "year": 2021,
+      "area": "Gestão da Tecnologia da Informação",
+      "proof": "2021-gestao-tecnologia-informacao/prova-2021-gestao-tecnologia-informacao.pdf",
+      "answerKey": "2021-gestao-tecnologia-informacao/gabarito-2021-gestao-tecnologia-informacao.pdf",
+      "expectedProofPages": 40,
+      "expectedAnswerKeyPages": 1,
+      "expectedVisualReview": [2, 3, 5, 14, 32],
+      "checks": []
+    },
+    {
+      "id": "2021-redes-computadores",
+      "year": 2021,
+      "area": "Redes de Computadores",
+      "proof": "2021-redes-computadores/prova-2021-redes-computadores.pdf",
+      "answerKey": "2021-redes-computadores/gabarito-2021-redes-computadores.pdf",
+      "expectedProofPages": 40,
+      "expectedAnswerKeyPages": 1,
+      "expectedVisualReview": [2, 3, 5, 9, 11, 12, 16, 18, 25, 26, 35],
+      "checks": []
+    },
+    {
+      "id": "2023-engenharia-computacao",
+      "year": 2023,
+      "area": "Engenharia de Computação",
+      "proof": "2023-engenharia-computacao/enade-2023-engenharia-computacao.pdf",
+      "answerKey": "2023-engenharia-computacao/gabarito-2023-engenharia-computacao.pdf",
+      "expectedProofPages": 40,
+      "expectedAnswerKeyPages": 1,
+      "checks": [
+        { "type": "optionEquals", "question": 16, "option": "E", "value": "15 13 0" },
+        { "type": "optionTextNotMatch", "question": 38, "option": "E", "pattern": "AVALIA.{0,8}GLOBAL DA PROVA|QUESTION.{0,8}PERCEP" },
+        { "type": "visualReview", "question": 6, "expected": true },
+        { "type": "visualReview", "question": 7, "expected": false }
+      ]
+    }
+  ]
+}

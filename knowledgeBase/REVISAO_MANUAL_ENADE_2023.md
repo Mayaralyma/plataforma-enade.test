@@ -8,8 +8,9 @@ Revisao aplicada em 10/11/2026 usando os arquivos oficiais versionados em `data/
 - PDF da prova e gabarito oficial associados a edicao.
 - 38 questoes importadas; todas com cinco alternativas e resposta do gabarito.
 - Nove questoes com transcricao/correcao manual: 1, 10, 12, 13, 22, 23, 24, 25 e 29.
-- As nove permanecem `PENDING`; nenhuma questao foi publicada.
-- As outras 29 passaram por segunda revisao contra o PDF oficial e o gabarito definitivo; todas continuam `PENDING`.
+- Na consulta ao banco PostgreSQL local em 14/11/2026, as 38 questoes estavam `PUBLISHED`; nenhuma estava pendente ou descartada.
+- As 38 questoes passaram por revisao contra o PDF oficial e o gabarito definitivo. A consulta confirmou cinco alternativas, resposta ou anulacao em todas, 38 entradas de gabarito e nenhuma sinalizacao `needsReview`.
+- A edicao nao tinha simulados vinculados no momento da consulta. Esse estado e do banco local e nao e versionado no repositorio.
 
 ## Itens conferidos e transcricoes aplicadas
 
@@ -30,12 +31,12 @@ Revisao aplicada em 10/11/2026 usando os arquivos oficiais versionados em `data/
 - Removidos artefatos de rodape de 24 alternativas e dos enunciados das questoes 6, 29 e 32. Na questao 38, a alternativa E foi separada do questionario de percepcao que vinha depois da prova.
 - Corrigida a alternativa E da questao 16 para `15 13 0`, conferida no PDF oficial.
 - Transcritos os dados do grafico da questao 3, a tabela de sentimentos por meio de mobilidade da questao 5, a ilustracao da questao 6 e as conexoes/estimativas do grafo da questao 32.
-- A verificacao final encontrou 38 questoes com cinco alternativas e gabarito, todas `PENDING`, nenhuma publicada, sem rodapes detectados nas alternativas.
+- A verificacao editorial encontrou 38 questoes com cinco alternativas e gabarito, sem rodapes detectados nas alternativas. O estado de publicacao atual do banco local esta registrado acima.
 - Verificacoes executadas: `npm test` (19 testes aprovados), `npm run validate:official-enade` (38 questoes e 38 respostas identificadas) e `npm run typecheck` (aprovado). O validador ainda sinaliza dez itens com dependencia visual para a curadoria, conforme seu criterio automatico.
 
 ## Limites e acesso ao original
 
-As imagens nao foram incorporadas ao texto da questao. As descricoes e transcricoes tornam os dados legiveis para o simulado, e o PDF original continua privado, associado a edicao e acessivel pela curadoria administrativa. Antes de publicar, o administrador deve conferir cada transcricao pelo link `Abrir PDF original` no editor da questao.
+As imagens nao foram incorporadas ao texto da questao. As descricoes e transcricoes tornam os dados legiveis para o simulado, e o PDF original continua privado, associado a edicao e acessivel pela curadoria administrativa. A revisao registrada acima conferiu as transcricoes pelo PDF original antes da publicacao.
 
 Fonte: PDF oficial `data/official-enade/2023-engenharia-computacao/enade-2023-engenharia-computacao.pdf` e gabarito definitivo `data/official-enade/2023-engenharia-computacao/gabarito-2023-engenharia-computacao.pdf`.
 

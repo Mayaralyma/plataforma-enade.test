@@ -7,13 +7,13 @@ import path from "node:path";
 const prisma = new PrismaClient();
 const testUserEmails: string[] = [];
 test.afterAll(async () => {
-  await prisma.edition.deleteMany({ where: { area: { startsWith: "E2E protected PDF " } } });
   await prisma.user.deleteMany({ where: { email: { in: testUserEmails } } });
+  await prisma.edition.deleteMany({ where: { area: { startsWith: "E2E protected PDF " } } });
   await prisma.$disconnect();
 });
 
 test("estudante se cadastra, tem acesso restrito e conclui um simulado", async ({ page }) => {
-  test.setTimeout(60_000);
+  test.setTimeout(120_000);
   const expectNoHorizontalOverflow = async (label: string) => {
     const overflow = await page.evaluate(() => {
       const root = document.documentElement;
@@ -69,6 +69,39 @@ test("estudante se cadastra, tem acesso restrito e conclui um simulado", async (
   const protectedPdfResponse = await page.request.get(`/api/admin/files/${pdfEdition.id}`);
   expect(protectedPdfResponse.status()).toBe(403);
 
+  const optionTexts = ["Choice A", "Choice B", "Choice C", "Choice D", "Choice E"];
+  const createQuestion = (editionId: string, originalNumber: number, status: "PENDING" | "PUBLISHED" | "DISCARDED", correctOption: string | null) => prisma.question.create({ data: {
+    editionId,
+    originalNumber,
+    statement: `Published filter question ${originalNumber}`,
+    status,
+    correctOption,
+    options: { create: optionTexts.map((text, index) => ({ label: String.fromCharCode(65 + index), text })) },
+  } });
+  const mixedEdition = await prisma.edition.create({ data: { year: 2000, area: `E2E protected PDF mixed ${randomUUID()}` } });
+  const pendingOnlyEdition = await prisma.edition.create({ data: { year: 1999, area: `E2E protected PDF pending ${randomUUID()}` } });
+  await createQuestion(mixedEdition.id, 1, "PUBLISHED", "A");
+  await createQuestion(mixedEdition.id, 2, "PENDING", null);
+  await createQuestion(mixedEdition.id, 3, "DISCARDED", null);
+  await createQuestion(pendingOnlyEdition.id, 1, "PENDING", null);
+
+  const listedEditionsResponse = await page.request.get("/api/editions");
+  expect(listedEditionsResponse.status()).toBe(200);
+  const listedEditions = await listedEditionsResponse.json() as { id: string; _count?: { questions: number } }[];
+  expect(listedEditions.find((edition) => edition.id === mixedEdition.id)?._count?.questions).toBe(1);
+  expect(listedEditions.some((edition) => edition.id === pendingOnlyEdition.id)).toBe(false);
+
+  const pendingSimulation = await page.request.post("/api/simulations", { data: { editionId: pendingOnlyEdition.id } });
+  expect(pendingSimulation.status()).toBe(400);
+  const mixedSimulation = await page.request.post("/api/simulations", { data: { editionId: mixedEdition.id } });
+  expect(mixedSimulation.status()).toBe(201);
+  const mixedSimulationCreated = await mixedSimulation.json() as { id: string };
+  const mixedSimulationDetail = await page.request.get(`/api/simulations/${mixedSimulationCreated.id}`);
+  const mixedSimulationBody = await mixedSimulationDetail.json() as { answers: { snapshot: { originalNumber: number; correctOption?: string } }[] };
+  expect(mixedSimulationBody.answers).toHaveLength(1);
+  expect(mixedSimulationBody.answers[0].snapshot.originalNumber).toBe(1);
+  expect(mixedSimulationBody.answers.every((answer) => !("correctOption" in answer.snapshot))).toBe(true);
+
   await page.setViewportSize({ width: 375, height: 812 });
   await expect(page.locator(".sidebar")).not.toHaveClass(/sidebar-open/);
   await expect(page.locator(".mobile-backdrop")).toHaveCount(0);
@@ -92,9 +125,15 @@ test("estudante se cadastra, tem acesso restrito e conclui um simulado", async (
   await expectNoHorizontalOverflow("prática mobile antes do simulado");
   await screenshot("student-practice-mobile-375");
   const simulationCreated = page.waitForResponse((response) => response.url().endsWith("/api/simulations") && response.request().method() === "POST" && response.status() === 201);
-  await page.getByRole("button", { name: "Começar simulado" }).first().click();
+  const seedEditionCard = page.locator(".edition-card").filter({ hasText: "Sistemas de Informação" }).first();
+  await seedEditionCard.getByRole("button", { name: "Começar simulado" }).click();
   const simulationId = (await (await simulationCreated).json()).id as string;
-  await expect(page.getByRole("heading", { name: /Qual prática ajuda/ })).toBeVisible();
+  const inProgressResponse = await page.request.get(`/api/simulations/${simulationId}`);
+  expect(inProgressResponse.status()).toBe(200);
+  const inProgress = await inProgressResponse.json() as { status: string; answers: { snapshot: { correctOption?: string } }[] };
+  expect(inProgress.status).toBe("IN_PROGRESS");
+  expect(inProgress.answers.every((answer) => !("correctOption" in answer.snapshot))).toBe(true);
+  await expect(page.getByRole("heading", { name: /Qual prática ajuda/ })).toBeVisible({ timeout: 20_000 });
   await expectNoHorizontalOverflow("simulado mobile");
   await expectElementFits(".topbar", "cabeçalho do simulado mobile");
   await expectElementFits(".sim-question", "questão mobile");
@@ -172,6 +211,7 @@ test("estudante se cadastra, tem acesso restrito e conclui um simulado", async (
   const finalized = await ownSimulation.json();
   expect(finalized.status).toBe("FINISHED");
   const answer = finalized.answers[0];
+  expect(answer.snapshot.correctOption).toBeTruthy();
   const lateChange = await page.request.patch(`/api/simulations/${simulationId}`, {
     data: { answerId: answer.id, selected: answer.selected === "A" ? "B" : "A" },
   });
