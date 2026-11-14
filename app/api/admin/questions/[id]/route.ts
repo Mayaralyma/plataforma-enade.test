@@ -14,7 +14,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   if (!question || question.status !== "PENDING") return Response.json({ error: "Apenas questões pendentes podem ser editadas." }, { status: 404 });
   const updated = await prisma.$transaction(async (tx) => {
     await tx.option.deleteMany({ where: { questionId: id } });
-    return tx.question.update({ where: { id }, data: { statement: parsed.data.statement, correctOption: parsed.data.correctOption, needsReview: parsed.data.needsReview ?? false, options: { create: parsed.data.options } }, include: { options: true, edition: true } });
+    return tx.question.update({ where: { id }, data: { statement: parsed.data.statement, correctOption: parsed.data.correctOption, needsReview: parsed.data.needsReview ?? false, reviewedAt: new Date(), options: { create: parsed.data.options } }, include: { options: true, edition: true } });
   });
   return Response.json(updated);
 }
@@ -27,6 +27,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   if (action !== "publish" && action !== "discard") return Response.json({ error: "Ação inválida." }, { status: 400 });
   const q = await prisma.question.findUnique({ where: { id }, include: { options: true } });
   if (!q || q.status !== "PENDING") return Response.json({ error: "Questão pendente não encontrada." }, { status: 404 });
+  if (action === "publish" && !q.reviewedAt) return Response.json({ error: "Abra e salve a revisão da questão antes de publicar." }, { status: 400 });
   if (action === "publish" && (q.options.length !== 5 || (!q.correctOption && !q.annulled))) return Response.json({ error: "Para publicar, revise as cinco alternativas e informe uma resposta correta (exceto questões anuladas)." }, { status: 400 });
   const question = await prisma.question.update({ where: { id }, data: { status: action === "publish" ? "PUBLISHED" : "DISCARDED" } });
   return Response.json(question);

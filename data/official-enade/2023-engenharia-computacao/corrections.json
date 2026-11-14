@@ -1,0 +1,1144 @@
+{
+  "questions": [
+    {
+      "originalNumber": 1,
+      "statement": "A fome e a insegurança alimentar são agravadas em regiões com elevados índices de desigualdade social. Propor soluções requer uma abordagem multidimensional que considere as dimensões sociais, culturais, políticas, econômicas e ambientais da produção e distribuição de alimentos.\n\nImagens da questão: (1) impacto dos conflitos sobre pessoas vulneráveis; (2) colheita de trigo perto da vila de Krasne, na Ucrânia; (3) secas em Madagascar, país com altos índices de fome.\n\nConsidere o texto e as imagens ao avaliar as asserções:\nI. A fome no mundo é um fenômeno biológico e sociológico inevitável.\nPORQUE\nII. A disponibilidade desigual de alimentos, conflitos geopolíticos, cadeias agrícolas globais e catástrofes climáticas impactam a segurança alimentar de muitas populações.\n\nA respeito das asserções, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "As asserções I e II são verdadeiras, e II justifica corretamente I."
+        },
+        {
+          "label": "B",
+          "text": "As asserções I e II são verdadeiras, mas II não justifica corretamente I."
+        },
+        {
+          "label": "C",
+          "text": "I é verdadeira e II é falsa."
+        },
+        {
+          "label": "D",
+          "text": "I é falsa e II é verdadeira."
+        },
+        {
+          "label": "E",
+          "text": "As asserções I e II são falsas."
+        }
+      ],
+      "correctOption": "D",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 2,
+      "statement": "O crescimento das cidades promove o aumento da demanda por serviços de água tratada, esgotamento sanitário, manejo das águas pluviais, limpeza urbana e coleta de resíduos sólidos. No Brasil, o processo de urbanização ocorreu de forma rápida e desigual, o que resultou no agravamento de injusti ças sociais e econômicas. Os serviços de saneamento básico considerados direitos humanos fundamentais não são acessíveis a uma parcela signifi cati va da população, principalmente àquela em que se concentram os segmentos populacionais em situação de vulnerabilidade. O atendimento integral e universalizado junto às populações periféricas e em situação de vulnerabilidade consti tui um grande desafi o, por demandar políti cas públicas e investi mentos subsidiados e permanentes. Disponível em: htt ps://www.periodicos.unimontes.br/index.php/verdegrande/ arti cle/view/6018. Acesso em: 22 jun. 2023 (adaptado) . Acerca do saneamento básico no Brasil, avalie as afi rmações a seguir. I. A grave desigualdade social, evidenciada pela segregação nos espaços urbanos, é uma das barreiras para a universalização do acesso aos serviços de saneamento básico. II. O serviço de abastecimento de água no Brasil situa-se no mesmo patamar de fornecimento e de infraestrutura que o sistema de coleta e tratamento do esgoto. III. A universalização do acesso aos serviços de saneamento básico requer investi mentos em políti cas públicas e em tecnologias sociais que priorizem a democrati zação e o atendimento às populações em situação de vulnerabilidade. IV. O aumento da incidência de doenças transmiti das pela água resulta não somente da inadequação dos serviços de saneamento, mas também da precariedade das condições de moradia da população em situação de vulnerabilidade. É correto apenas o que se afi rma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I e II."
+        },
+        {
+          "label": "B",
+          "text": "I e IV."
+        },
+        {
+          "label": "C",
+          "text": "II e III."
+        },
+        {
+          "label": "D",
+          "text": "I, III e IV."
+        },
+        {
+          "label": "E",
+          "text": "II, III e IV."
+        }
+      ],
+      "correctOption": "D",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 3,
+      "statement": "Estudos realizados em 2021 pelo Fundo das Nações Unidas para a Infância (Unicef), em parceria com a Organização Mundial da Saúde (OMS), mostraram que, no Brasil, houve uma queda brusca da taxa de vacinação infanti l nos últi mos anos: entre 2017 e 2021, a taxa caiu de 93,1% para 71,49%, considerando-se crianças com menos de um ano de idade. Essa redução da cobertura vacinal deixa a população infanti l muito vulnerável e exposta a doenças que já estavam prati camente erradicadas, tal como o sarampo, que em 2018 voltou a ser uma preocupação para os brasileiros. Além do sarampo, corre-se o risco de outras doenças voltarem a acometer as crianças, como a poliomielite, a meningite, a rubéola e a dift eria. O gráfico apresenta o percentual de vacinação infantil por imunizante (2017 a 2021), com metas de 90% para BCG e 95% para os demais: BCG — 2017 97,98%; 2018 99,72%; 2019 86,67%; 2020 74,03%; 2021 65,93%. Tríplice Viral D1 — 86,24%; 92,61%; 93,12%; 79,57%; 70,94%. Tríplice Viral D2 — 72,94%; 76,89%; 81,55%; 62,82%; 49,62%. Tetraviral (SRC+VZ) — 35,44%; 33,26%; 34,24%; 20,71%; 5,70%. Poliomielite — 84,24%; 89,54%; 84,19%; 76,05%; 67,13%. Febre Amarela — 47,37%; 59,50%; 62,41%; 57,20%; 55,56%. Hepatite A — 78,94%; 82,69%; 85,02%; 75,02%; 64,50% (valores na ordem de 2017 a 2021).\n\nDisponível em: htt ps://portal.fi ocruz.br/noti cia/vacinacao-infanti l-sofre-queda-brusca-no-brasil. Acesso em: 23 de jun. 2023 (adaptado). Considerando as informações apresentadas no texto e no gráfi co, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "O percentual de vacinação com o imunizante da poliomielite se manteve constante na maior parte do período de 2017 a 2021."
+        },
+        {
+          "label": "B",
+          "text": "A baixa cobertura vacinal de crianças menores de um ano de idade é um dos indicadores de baixo desempenho das políti cas públicas de atenção primária em saúde."
+        },
+        {
+          "label": "C",
+          "text": "A cobertura vacinal de crianças menores de um ano de idade foi muito variável, com alto índice vacinal da BCG e média cobertura da vacina tetraviral, no período de 2017 a 2021."
+        },
+        {
+          "label": "D",
+          "text": "O aumento da taxa de vacinação infanti l contra a febre amarela em 2021, em comparação com o índice registrado em 2017, revela que as campanhas de conscienti zação da população foram bem-sucedidas quanto ao alcance da meta de vacinação contra essa enfermidade."
+        },
+        {
+          "label": "E",
+          "text": "A pandemia de Covid-19, ao ampliar a conscienti zação da população sobre a necessidade de manter alto índice vacinal para evitar o reaparecimento de doenças infectocontagiosas, contribuiu para o aumento da cobertura vacinal contra outras doenças, conforme indicado no gráfi co."
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 4,
+      "statement": "TEXTO 1 A Inteligência Arti fi cial (IA) generati va é capaz de criar novos dados, únicos, que possibilitam aprender por conta própria, indo além do que a tecnologia tradicional proporciona, visto que esta precisa de intervenção humana. Um exemplo da IA generati va é o ChatGPT, que pode gerar imagens, músicas e textos completamente novos. Entre outras coisas, por meio da IA generati va, é possível elaborar modelos de previsão de testes clínicos, realizar a identi fi cação de padrões em exames médicos e, ainda, auxiliar no diagnósti co de doenças. Disponível em: htt ps://olhardigital.com.br/2023/07/12/internet-e-redes-sociais/ inteligencia-arti fi cial-generati va-o-que-e- como-funciona-e-onde-usar/. Acesso em: 2 ago. 2023 (adaptado). TEXTO 2 Acredita-se que a tecnologia de IA generati va será disrupti va e, portanto, capaz de alterar drasti camente a maneira como o ser humano se relaciona com as máquinas. O uso da IA generati va pode causar importante revolução no segmento de produção de conteúdo. Muitas dessas consequências poderão ser maléfi cas para diversos setores da sociedade. Além do mau uso dessa tecnologia e das questões éti cas, avalia-se que ela pode agravar a desigualdade econômico-social, tanto entre nações quanto entre indivíduos da mesma nação. Disponível em: htt ps://canaltech.com.br/inteligencia-arti fi cial/o-que-e-ia-generati va/. Acesso em: 2 ago. 2023 (adaptado). Considerando os textos apresentados, é correto afi rmar que a IA generati va",
+      "options": [
+        {
+          "label": "A",
+          "text": "proporciona novos recursos de linguagem que geram tecnologias capazes de realizar interações próprias dos seres humanos."
+        },
+        {
+          "label": "B",
+          "text": "restringe o aprendizado ao que é legalmente estabelecido e úti l ao ser humano, o que facilita seu modo de agir no mundo do conhecimento e do trabalho."
+        },
+        {
+          "label": "C",
+          "text": "promove a igualdade econômico-social ao substi tuir o ser humano no exercício de profi ssões cujas ati vidades sejam repeti ti vas e exijam pouco conhecimento."
+        },
+        {
+          "label": "D",
+          "text": "gera pouco impacto socioeconômico em países com elevado desenvolvimento tecnológico, pois, neles, os processos de criação e inovação já estão bem consolidados."
+        },
+        {
+          "label": "E",
+          "text": "esti mula o desenvolvimento intelectual dos seres humanos, uma vez que ela assume parte do conhecimento, resolvendo problemas antes delegados apenas a especialistas."
+        }
+      ],
+      "correctOption": "A",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 5,
+      "statement": "Os seguintes ícones foram uti lizados em um estudo realizado por um grupo de trabalho de monitoramento da relação das mulheres com a mobilidade urbana na cidade de São Paulo. Na pesquisa, perguntou-se às mulheres como elas se senti am nas situações representadas por tais imagens. Transcrição da tabela de respostas por modo de mobilidade: a pé — atenta, insegura, ansiosa, cansada; ônibus — desconfortável, insegura, péssima; bicicleta — não ando, livre; metrô — atenta aos assédios, observada, desconfiada, um pouco mais segura; trem — em pânico, apertada; espaço público — nem fico, tenho medo, passo correndo, em alerta.\n\nColetivo Fórum Regional das Mulheres da Zona Norte, Rede MÁS, Sampapé! (2018). Relatório de Análises, Resultados e Recomendações. Projeto Mulheres Caminhantes! Auditoria de Segurança de Gênero e Caminhabilidade Terminal Santana, São Paulo, SP (adaptado). Considerando o estudo apresentado e relacionando o trabalho de monitoramento social das necessidades de mulheres no contexto urbano aos pressupostos do direito à cidade, avalie as afi rmações a seguir. I. A predominância de comentários negati vos indica o medo generalizado que as mulheres sentem ao se deslocarem ati vamente pela cidade, inclusive quanto à percepção de seu corpo no espaço urbano. II. Os comentários negati vos sobre os modos coleti vos de transporte estão relacionados à lotação nesses meios e a situações de assédio, tendo sido o metrô avaliado como um espaço um pouco mais seguro para as mulheres, em comparação com outras formas de mobilidade. III. Os comentários negati vos refl etem a percepção das mulheres quanto ao perigo a que se expõem e sugerem que o medo relacionado à vulnerabilidade de gênero aponta para uma geografi a parti cular nas cidades, em que os meios de transporte afetam os movimentos roti neiros das mulheres no espaço urbano. É correto o que se afi rma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I, apenas."
+        },
+        {
+          "label": "B",
+          "text": "III, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e II, apenas."
+        },
+        {
+          "label": "D",
+          "text": "II e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 6,
+      "statement": "TEXTO 1 Maria Bárbara ti nha o verdadeiro ti po das velhas maranhenses criadas na fazenda. Tratava muito dos avós, quase todos portugueses. Quando falava dos pretos, dizia “os sujos” e, quando se referia a um mulato dizia “o cabra”. Maria Bárbara ti nha grande admiração pelos portugueses, dedicava-lhes um entusiasmo sem limites, preferia-os em tudo aos brasileiros. Quando a fi lha foi pedida por Manuel Pedroso, então principiante no comércio da capital, ela dissera: “Bem! Ao menos tenho a certeza de que é branco!” AZEVEDO, A. O mulato. São Luís: Typografi a o Paiz, 1881 (adaptado). TEXTO 2 A morte brinca com balas nos dedos gati lhos dos meninos. Dorvi se lembrou do combinado, o juramento feito em voz uníssona, gritado sob o pipocar dos ti ros: — A gente combinamos de não morrer! Balas enfeitam o coração da noite. Não gosto de fi lmes da tevê. Morre e mata de menti ra. Aqui, não. Às vezes a morte é leve como a poeira. E a vida se confunde com um pó branco qualquer. Às vezes é uma fumaça adocicada enchendo o pulmão da gente. EVARISTO, C. Olhos d ́agua. Rio de Janeiro: Pallas. Fundação Biblioteca Nacional, 2016 (adaptado). TEXTO 3 — Descrição da obra: jovem negro em primeiro plano, de braços cruzados, óculos espelhados, corrente com cruz e roupa escura; ao fundo, céu azul, sol amarelo, morros, favela e vegetação. A figura segura um exemplar de ‘Olhos d’água’. DEL NUNES. O Cria. Disponível em: htt ps://www.instagram.com/p/CgCSOKegX4J/. Acesso em: 13 jun. 2023. O Cria é uma releitura da pintura “O Mesti ço” de Cândido Porti nari. Em sua obra, Del Nunes personifi ca a identi dade do jovem brasileiro das periferias do Brasil. Oriundo de São Cristóvão, bairro periférico de Salvador, o arti sta transmite em suas produções a essência da cultura preta, cria e recria momentos do povo negro apagados pela história, divulgando-as nas redes sociais. \n\nA parti r das informações apresentadas e tendo em vista a possibilidade das várias manifestações culturais estabelecerem relação com a construção da memória e a defi nição da identi dade cultural de um povo, avalie as afi rmações a seguir. I. Os trechos das obras apresentadas nos textos 1 e 2 e a ressignifi cação artí sti ca proposta no texto 3 resgatam uma refl exão acerca da condição histórica da maioria da população brasileira. II. Ao longo do processo histórico de consti tuição da identi dade do povo brasileiro, o convívio cooperati vo e cordial entre as diferentes culturas contribuiu para a integração e o respeito às diferenças étnicas e religiosas. III. A produção de conteúdo artí sti co que proponha a refl exão sobre a condição social da população negra provoca a quebra do silenciamento imposto pelo processo de segregação historicamente promovido pelo processo de colonização. IV. A arte expressa no texto 3, ao imitar uma obra clássica de Porti nari, apresenta limitação na promoção do empoderamento da população afrodescendente, provocando um acirramento cultural. É correto apenas o que se afi rma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "II."
+        },
+        {
+          "label": "B",
+          "text": "I V."
+        },
+        {
+          "label": "C",
+          "text": "I e III."
+        },
+        {
+          "label": "D",
+          "text": "I e IV."
+        },
+        {
+          "label": "E",
+          "text": "II e III."
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 7,
+      "statement": "No Brasil, os idosos têm sido cada vez mais obrigados a permanecer no trabalho formal ou informal, mesmo após a aposentadoria, visto que os recursos provenientes desta, na maioria dos casos, são insufi cientes para a manutenção dos indivíduos. Um fator que pode ter agravado essa situação foi a aprovação da reforma previdenciária de 2019, que modifi cou as regras de idade e contribuição para o acesso ao direito ao benefí cio da aposentadoria. Tal mudança pode ter resultado em um número ainda maior de idosos que disputam com as populações jovens e com sistemas de automação, no mercado atual, o trabalho precarizado. Essa situação contribui para o acirramento do preconceito contra essa faixa etária, denominado etarismo. Considerando o texto apresentado, avalie as afi rmações a seguir. I. O conceito de etarismo fundamenta-se no fato de os idosos terem capacidade de trabalho reduzida e imporem custo elevado à previdência social, o que compromete a sua sustentabilidade econômica. II. As ações legislati vas que visem ao prolongamento do tempo de atuação da população idosa no mercado de trabalho devem ser acompanhadas por uma políti ca de promoção da saúde e da qualidade de vida. III. As ações intergeracionais no mercado de trabalho têm como premissa o desenvolvimento de tecnologias que dotem o idoso de capacidade de trabalho equivalente à de seus colegas jovens. É correto o que se afi rma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "II, apenas."
+        },
+        {
+          "label": "B",
+          "text": "III, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e II, apenas."
+        },
+        {
+          "label": "D",
+          "text": "I e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "A",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 8,
+      "statement": "Recentemente, a população carcerária feminina do Brasil tornou-se a terceira maior do mundo. A situação do encarceramento feminino por tráfi co de drogas e outras situações que circundam o assunto foi tema de discussão da Secretaria de Políti cas sobre Drogas do Ministério da Justi ça e Segurança Pública (Senad/MJSP), em seminário realizado em abril de 2023. O evento contou com a parti cipação de 23 países. Segundo os dados apresentados pela Senad, a incidência penal sobre drogas no Brasil é uma das principais causas de prisão de mulheres, chegando a 54% dos casos de encarceramento, contra 28% dos homens, índice que impacta em aspectos como maternidade e primeira infância. Disponível em: htt ps://www.gov.br/mj/pt-br/assuntos/noti cias/senad-discute-situacao-de-mulheres-encarceradas- no-contexto-de-drogas-no-brasil. Acesso em: 15 jun. 2023 (adaptado). Acerca do tema apresentado, avalie as asserções a seguir e a relação proposta entre elas. I. A maioria das mulheres envolvidas em ati vidades do tráfi co encontra-se em posições hierarquicamente inferiores, sendo classifi cadas como “mulas e aviões”, o que revela a reprodução, no mercado ilegal, da divisão sexual do trabalho observada no mercado formal. PORQUE II. O sistema penal agrava a situação de vulnerabilidade das mulheres encarceradas, seja pela invisibilização com que as trata, seja por meio da violência insti tucional que reproduz a violência estrutural das relações sociais patriarcais. A respeito dessas asserções, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "As asserções I e II são proposições verdadeiras, e a II é uma justi fi cati va correta da I."
+        },
+        {
+          "label": "B",
+          "text": "As asserções I e II são proposições verdadeiras, mas a II não é uma justi fi cati va correta da I."
+        },
+        {
+          "label": "C",
+          "text": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa."
+        },
+        {
+          "label": "D",
+          "text": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira."
+        },
+        {
+          "label": "E",
+          "text": "As asserções I e II são proposições falsas."
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 9,
+      "statement": "A sociedade do século XXI não é mais uma sociedade disciplinar, mas, sim, uma sociedade do desempenho. Os seus habitantes também não se chamam mais sujeitos de obediência, mas, sim, sujeitos de desempenho e produção. São empresários de si mesmos. BYUNG-CHUL HAN. Sociedade do Cansaço . Petrópolis: Vozes, 2015 (adaptado). Considerando o texto apresentado, avalie as afi rmações a seguir. I. Os recursos tecnológicos, como noti fi cações de mensagens em tempo real e controle da velocidade de áudio em redes de mensagens, são fatores que podem contribuir para a precarização das relações de trabalho na sociedade contemporânea. II. As medidas pessoais de proteção à saúde mental e de promoção da qualidade de vida incluem a desati vação de aplicati vos e mecanismos de noti fi cações instantâneas, bem como a fi xação de horários para uso profi ssional e uso recreati vo das tecnologias digitais. III. As medidas públicas de prevenção das doenças e dos danos sociais associados ao uso excessivo dos recursos tecnológicos de comunicação envolvem estímulos ao letramento digital, à alfabetização midiática e à regulamentação do uso de plataformas digitais no ambiente de trabalho. É correto o que se afi rma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I, apenas."
+        },
+        {
+          "label": "B",
+          "text": "III, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e II, apenas."
+        },
+        {
+          "label": "D",
+          "text": "II e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 10,
+      "statement": "Os resistores são dispositivos utilizados com finalidade de limitar a corrente elétrica em um circuito elétrico. Eles conseguem desempenhar essa função por apresentarem a propriedade da resistência elétrica, que é a capacidade de um corpo se opor à passagem de corrente elétrica. Diversos materiais podem ser utilizados como resistores, tais como níquel-cromo, carbono e grafite. Diante disso, considere uma situação hipotética em que seja preciso construir resistores cilíndricos na forma da figura a seguir, a fim de serem utilizados em um circuito de corrente contínua que possui tensão igual a 12 V. Na figura, L representa o comprimento do material e A representa a área de seção transversal. A L Observe, também, a tabela a seguir, a qual especifica características de três tipos de materiais utilizados para fabricação dos resistores hipotéticos, como a resistividade r , o comprimento L e a área A. \n\nTranscrição conferida da tabela (material; resistividade em ohm·mm²/m; comprimento em m; área em mm²): Carbono — 40,00; 1,00; 2,50. Grafite — 13,00; 1,50; 1,50. Níquel-cromo — 1,10; 5,00; 0,50. Na figura, L representa o comprimento do cilindro e A sua área de seção transversal.\n\nCom essas informações, escolha a configuração que resulta em corrente menor que 300 mA.",
+      "options": [
+        {
+          "label": "A",
+          "text": "2 resistores de grafite em série."
+        },
+        {
+          "label": "B",
+          "text": "3 resistores de carbono em série."
+        },
+        {
+          "label": "C",
+          "text": "2 resistores de grafite em paralelo."
+        },
+        {
+          "label": "D",
+          "text": "2 resistores de carbono em paralelo."
+        },
+        {
+          "label": "E",
+          "text": "3 resistores de níquel-cromo em série."
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 11,
+      "statement": "O protocolo de roteamento interno OSPF (open shortest path first) representa um sistema autônomo (SA) como um grafo ponderado, em que roteadores são os vértices, conexões entre os roteadores são as arestas e atrasos nas conexões são os pesos. No OSPF, a identificação de cada conexão e seu respectivo atraso são passados de roteador em roteador até que todos os roteadores formem uma base de dados com o grafo que descreve o SA. O OSPF utiliza uma versão distribuída do algoritmo de caminhos mínimos de Dijkstra para computar as melhores rotas para todos os possíveis destinos e para produzir as tabelas de rotas para cada roteador. Cada rota computada é a que apresenta o menor valor para a soma dos atrasos nas conexões usadas na rota entre a rede de origem e a rede de destino. Disponível em: https://memoria.rnp.br/newsgen/9705/n1-1.html. Acesso em: 1 mar. 2023 (adaptado). Acerca do protocolo OSPF e com base nas informações apresentadas no texto, avalie as afirmações a seguir. I. Quando há diferentes caminhos possíveis entre uma origem e um destino, a rota selecionada é a que apresenta o menor número de conexões. II. Há uma instância da base de dados relativa a conexões e a atrasos, formando o grafo que descreve o SA em cada roteador que compõe o SA. III. O algoritmo de Dijkstra é executado por um único roteador dentro do SA e a tabela de rotas resultante é passada para todos os roteadores no SA. IV. Para todos os roteadores dentro de um SA, há a necessidade de tráfego de informações acerca de atrasos e de conexões entre roteadores. É correto apenas o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I e III."
+        },
+        {
+          "label": "B",
+          "text": "II e III."
+        },
+        {
+          "label": "C",
+          "text": "II e IV."
+        },
+        {
+          "label": "D",
+          "text": "I, II e IV."
+        },
+        {
+          "label": "E",
+          "text": "I, III e IV."
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 12,
+      "statement": "Uma relação R em um conjunto S é uma relação de equivalência se ela satisfizer todas as propriedades a seguir: 1. Reflexividade. Para todo a ∈ S, a R a; 2. Simetria. Para todos a, b ∈ S, a R b ⇔ b R a; 3. Transitividade. Para todos a, b, c ∈ S, se a R b e b R c, então, a R c. Uma partição de um conjunto S é uma coleção de subconjuntos disjuntos não vazios, cuja união é igual a S. Se R é uma relação de equivalência em um conjunto S e se x ∈ S, denota-se por [x] o conjunto de todos os elementos relacionados a x em S e chama-se esse conjunto de classe de equivalência de x. GERSTING, J. L. Fundamentos matemáticos para a ciência da computação: um tratamento moderno de matemática discreta. 5. ed. Rio de Janeiro: LTC, 2008 (adaptado). A partir dessas informações, considere que, em um cluster computacional, haja 10 computadores com configurações de hardware diferentes. Os administradores desse cluster pretendem desenvolver um algoritmo de escalonamento de tarefas que mantenha processos de uma mesma aplicação sendo executados em máquinas semelhantes, mesmo com estruturas arquiteturais distintas. Assim, os administradores fizeram uma tabela relacionando os computadores. Essa tabela foi montada considerando pares de computadores. Dessa forma, dois computadores do cluster fazem parte de uma linha na tabela se possuem alguma característica semelhante, ou seja, se apresentam algum tipo de relacionamento (por exemplo, quantidade de memória ou de núcleos de processamento semelhantes). Obviamente, apesar de não estar evidente na tabela, um computador também tem relação consigo mesmo. Os computadores estão numerados de 1 a 10. Transcrição conferida dos pares da tabela: (1,5), (2,8), (5,7), (7,10), (2,9), (3,4), (10,1), (5,10), (7,1) e (9,8).\n\nCom base nesse cenário e no conceito de relações de equivalência, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "A relação descrita pela tabela é uma relação de equivalência."
+        },
+        {
+          "label": "B",
+          "text": "A relação descrita pela tabela apresenta a propriedade de simetria, mas não a de transitividade."
+        },
+        {
+          "label": "C",
+          "text": "A relação descrita pela tabela apresenta a propriedade de transitividade, mas não a de simetria."
+        },
+        {
+          "label": "D",
+          "text": "O subconjunto de computadores representados pelos números 1, 3, 5, 7 e 10 forma uma classe de equivalência."
+        },
+        {
+          "label": "E",
+          "text": "O subconjunto 2, 3, 4, 8 e 9 forma uma classe de equivalência."
+        }
+      ],
+      "correctOption": "A",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 13,
+      "statement": "Uma forma sistemática de analisar circuitos elétricos de qualquer tamanho, visando à simulação em computadores, consiste em representá-los por meio de grafos. Essa representação implica a substituição dos elementos do ramo do circuito por uma conexão orientada (arco) e de nós do circuito por vértices, resultando em um grafo orientado. A orientação dos arcos coincide com a orientação dos sentidos de referência associados de tensão e corrente, adotados pela convenção passiva. Grafos são ditos conexos se existir, ao menos, um caminho entre quaisquer dois nós. Corte refere-se a um conjunto de arcos que, se removido, divide o grafo (tornando-o desconexo). A lei de Kirchhoff das correntes, usando a nomenclatura de grafos, pode ser enunciada como “para qualquer rede de parâmetros concentrados e para qualquer de seus cortes, a soma algébrica de todas as correntes através dos arcos do corte é zero.” Disponível em: http://www.peb.ufrj.br/. Acesso em: 16 jun. 2023 (adaptado). Descrição conferida do grafo equivalente: vértices A, B, C e D; arco 1 liga A a C; arco 2 liga A a B; arco 3 liga B a D; arco 4 liga B a C; arco 5 liga C a D; arco 6 liga D a A. As correntes correspondentes são I1 a I6, respectivamente. Após aplicar a lei de Kirchhoff das correntes para os cortes X = {1, 4, 5}, Y = {1, 2, 3, 5} e Z = {1, 4, 3, 6}, assinale a opção que apresenta equações válidas para a soma algébrica das correntes em dois desses cortes.",
+      "options": [
+        {
+          "label": "A",
+          "text": "I 1 + I 4 - I 5 = 0 e I 1 + I 2 + I 3 - I 5 = 0"
+        },
+        {
+          "label": "B",
+          "text": "I 1 + I 4 + I 5 = 0 e I 1 + I 2 + I 3 + I 5 = 0"
+        },
+        {
+          "label": "C",
+          "text": "I 1 + I 4 + I 5 = 0 e I 1 + I 3 + I 4 - I 6 = 0"
+        },
+        {
+          "label": "D",
+          "text": "I 1 + I 2 - I 3 - I 5 = 0 e I 1 + I 3 + I 4 - I 6 = 0"
+        },
+        {
+          "label": "E",
+          "text": "I1 + I2 − I3 − I5 = 0 e I1 − I3 + I4 − I6 = 0."
+        }
+      ],
+      "correctOption": "D",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 14,
+      "statement": "Uma lista pode ser dividida em duas partes: o primeiro elemento (a cabeça da lista) e os demais elementos (sua cauda). Por exemplo, em uma lista de inteiros [1, 2, 3, 4], a cabeça dessa lista é o valor inteiro 1, enquanto sua cauda é a lista de inteiros [2, 3, 4]. Uma lista vazia é representada por []. O código a seguir define duas funções descritas em uma linguagem de programação funcional que manipulam listas de inteiros. A função enade recebe uma lista de inteiros e produz uma nova lista de inteiros. A função auxiliar é chamada pela função enade e possui dois parâmetros: um número inteiro e uma lista de inteiros. Essa função produz uma lista de inteiros. enade :: [Int] -> [Int] enade [] = [] enade (cabeca:cauda) = auxiliar cabeca (enade cauda) auxiliar :: Int -> [Int] -> [Int] auxiliar x [] = [x] auxiliar x (cabeca:cauda) | (x `mod` 2 == 0) = x:cabeca:cauda | otherwise = cabeca:auxiliar x cauda Considerando o código apresentado, é correto afirmar que se a função enade for executada recebendo como parâmetro de entrada a lista [1, 2, 3, 4, 5, 6, 7, 8], o resultado será",
+      "options": [
+        {
+          "label": "A",
+          "text": "[]."
+        },
+        {
+          "label": "B",
+          "text": "[2, 4, 6, 8]."
+        },
+        {
+          "label": "C",
+          "text": "[1, 2, 3, 4, 5, 6, 7, 8]."
+        },
+        {
+          "label": "D",
+          "text": "[2, 4, 6, 8, 1, 3, 5, 7]."
+        },
+        {
+          "label": "E",
+          "text": "[2, 4, 6, 8, 7, 5, 3, 1]."
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 15,
+      "statement": "Memory leak, ou vazamento de memória, é um problema que ocorre em sistemas computacionais quando uma parte da memória, alocada para uma determinada operação, não é liberada quando se torna desnecessária. Na linguagem C, esse tipo de problema é quase sempre relacionado ao uso incorreto das funções malloc( ) e free( ). Esse erro de programação pode levar a falhas no sistema se a memória for completamente consumida. A partir dessas informações, assinale a opção que apresenta um trecho com memory leak.",
+      "options": [
+        {
+          "label": "A",
+          "text": "void f( ){ void *s; s = malloc(50); free(s); }"
+        },
+        {
+          "label": "B",
+          "text": "int f( ){ float *a; return 0; }"
+        },
+        {
+          "label": "C",
+          "text": "int f(char *data){ void *s; s = malloc(50); int size = strlen(data); if (size > 50) return(-1); free(s); return 0; }"
+        },
+        {
+          "label": "D",
+          "text": "int *f(int n){ int *num = malloc(sizeof(int)*n); return num; } int main(void){ int *num; num = f(10); free(num); return 0; }"
+        },
+        {
+          "label": "E",
+          "text": "void f(int n){ char *m = malloc(10); char *n = malloc(10); free(m); m = n; free(m); free(n); }"
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 16,
+      "statement": "Na programação de sistemas embarcados, algumas posições de memória servem para diferentes propósitos, não apenas para armazenar valores. Em algumas dessas memórias, cada um dos bits possui um significado diferente, sendo necessário manipulá-los individualmente ou em pequenos grupos. Por isso, o conhecimento da álgebra booliana, bem como dos operadores utilizados para realizar operações binárias nas linguagens de programação, é essencial para o desenvolvimento desse tipo de sistema. ALMEIDA, R. M.; MORAES, C. H. V.; SERAPHIM, T. F. P. Programação de Sistemas Embarcados: desenvolvendo software para microcontroladores em linguagem C. Rio de Janeiro: Elsevier, 2016 (adaptado). A partir dessas informações, observe o código apresentado a seguir, escrito na linguagem C, que faz uso de operações binárias sobre variáveis inteiras. #include <stdio.h> int main() { int a, b; int x, y, z; scanf(\"%d %d\", &a, &b); x = a; y = b; z = a + b; while (a) { x = x | b; y = y ^ a; z = z & (a+b); a = a >> 1; b = b << 1; } printf (\"%d %d %d\\n\", x, y, z); return 0; } Após a chamada desse programa, caso o usuário entre com os valores 10 e 1, nessa ordem, qual será, exatamente, o valor da saída do programa?",
+      "options": [
+        {
+          "label": "A",
+          "text": "10 1 0"
+        },
+        {
+          "label": "B",
+          "text": "10 1 11"
+        },
+        {
+          "label": "C",
+          "text": "11 11 11"
+        },
+        {
+          "label": "D",
+          "text": "15 12 2"
+        },
+        {
+          "label": "E",
+          "text": "15 13 0"
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 17,
+      "statement": "Dada uma sequência de caracteres S = s 1 , s 2 , ..., s n , uma subsequência de S é dada pela remoção de zero ou mais caracteres de S. Formalmente, a sequência X = x 1 , x 2 , ..., x k é subsequência de S se existe uma sequência crescente de índices i 1 , ..., i k de S, tal que x j = S i j para todo j = 1, 2, ..., k. Define-se, também, um prefixo da sequência S com comprimento i para i = 0, ..., n, como S i = s 1 , s 2 , ..., s i . O problema da Subsequência Comum Mais Longa (LCS) e suas variações, definido a seguir, pode ser utilizado em análise de textos e em bioinformática. O problema da LCS pressupõe duas sequências de caracteres A = a 1 , a 2 , ..., a n e B = b 1 , b 2 , ..., b m , de comprimentos n e m, respectivamente. Dadas essas duas sequências, é preciso encontrar uma sequência de maior comprimento possível que seja, simultaneamente, subsequência de A e de B. A partir dessas informações, considere que Z = z 1 , z 2 , ..., z k seja uma LCS das sequências A e B. Em relação ao problema da LCS, avalie as afirmações a seguir. I. Se a n = b m , então z k = a n , z k = b m e Z k-1 é uma LCS de A n-1 e B m-1 . II. Se a n ≠ b m e z k ≠ a n , então Z é uma LCS de A n-1 e B. III. Seja lcs(i,j) o comprimento da LCS entre A i e B j . Para i, j > 0, se a i ≠ b j , então lcs(i,j) = min{lcs(i, j-1), lcs(i-1, j)}. IV. Seja lcs(i,j) o comprimento da LCS entre A i e B j . Para i, j > 0, se a i = b j , então lcs(i,j) = lcs(i-1,j-1)+1. É correto apenas o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I e III."
+        },
+        {
+          "label": "B",
+          "text": "I e IV."
+        },
+        {
+          "label": "C",
+          "text": "II e III."
+        },
+        {
+          "label": "D",
+          "text": "I, II e IV."
+        },
+        {
+          "label": "E",
+          "text": "II, III e IV"
+        }
+      ],
+      "correctOption": "D",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 18,
+      "statement": "Vetores de tamanho dinâmico são muito utilizados como estruturas de dados para armazenar listas e tabelas de dispersão (tabelas hash). Essa representação permite que o número máximo de elementos a ser inserido não precise ser pré-determinado. Uma técnica para implementar vetores de tamanho dinâmico é aquela que dobra o tamanho do vetor quando o número de itens a ser armazenado ultrapassa o tamanho atual do vetor. Essa operação requer uma alocação de memória para conter o vetor com o dobro do tamanho atual e a realização de cópia dos elementos para o novo vetor. Com base nessas informações, considere uma lista linear implementada com um vetor dinâmico. Assuma que todos os itens inseridos na lista tenham o mesmo tamanho e que o vetor tenha tamanho inicial para comportar apenas 1 item. Considerando uma sequência de n inserções no final dessa lista, o tempo médio por inserção e o tempo total gasto para executar todas as n operações são, respectivamente, da ordem de",
+      "options": [
+        {
+          "label": "A",
+          "text": "QQ(log)(log).nnn e"
+        },
+        {
+          "label": "B",
+          "text": "QQ()().1 e n"
+        },
+        {
+          "label": "C",
+          "text": "QQ()().1 2 e n"
+        },
+        {
+          "label": "D",
+          "text": "QQ()().nn e 2"
+        },
+        {
+          "label": "E",
+          "text": "QQ()(). / nn e 32"
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 19,
+      "statement": "É chamado de compilação o processo de conversão do código escrito pelo programador para um arquivo binário que o computador consegue executar. Esse processo é realizado por um programa chamado compilador. Entre as diversas tarefas de um compilador, destaca-se a de identificar os possíveis erros sintáticos e semânticos. Com base nessas informações, considere uma linguagem de programação em que a sintaxe de uma operação aritmética seja dada pela seguinte gramática livre de contexto: S → var = E; | var = E; S E → E + E | E - E | E * E | E/E | E(E) | var Inspirado nessa gramática, um profissional submete a seguinte sentença ao compilador dessa linguagem de programação: a = a / (b - b); Com base na gramática da linguagem de programação e acerca do processo de análise sintática e semântica da sentença proposta pelo profissional, é correto afirmar que",
+      "options": [
+        {
+          "label": "A",
+          "text": "a gramática gera a sentença apresentada e o erro presente na expressão está fora do escopo das análises sintática e semântica."
+        },
+        {
+          "label": "B",
+          "text": "a gramática gera a sentença apresentada, porém o analisador semântico transmitirá uma mensagem de erro."
+        },
+        {
+          "label": "C",
+          "text": "o analisador léxico transmitirá uma mensagem de erro, pois a gramática não gera a sentença apresentada."
+        },
+        {
+          "label": "D",
+          "text": "o analisador semântico transmitirá uma mensagem de erro, pois a gramática não gera a sentença apresentada."
+        },
+        {
+          "label": "E",
+          "text": "a gramática gera a sentença apresentada, porém o analisador léxico transmitirá uma mensagem de erro."
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 20,
+      "statement": "Computação em nuvem representa um conceito relativo ao compartilhamento de recursos, tais como capacidade de processamento, armazenamento, comunicação de dados e pessoal qualificado para manter sistemas computacionais disponíveis na internet. Quando esse compartilhamento constitui um serviço disponível para qualquer pessoa, o serviço é conhecido como nuvem pública. Quando as mesmas tecnologias são empregadas para uma única empresa, não permitindo que terceiros utilizem parte dos recursos, temos uma nuvem privada. Considerando as vantagens que o gerente de uma empresa espera obter na contratação de um serviço de nuvem pública, avalie as afirmações a seguir. I. Um serviço de nuvem pública proporciona a redução de custos operacionais, pois é possível dimensionar a necessidade desses recursos com base na demanda, visto que há momentos em que a empresa precisa de mais recursos e há momentos em que ela precisa de menos recursos. II. Um serviço de nuvem pública gera aumento da velocidade de execução do software e de acesso ao software a partir de qualquer localidade, pois a nuvem pública garante acesso rápido em qualquer parte do mundo, o que contrasta com um servidor localizado na cidade da empresa. III. Um serviço de nuvem pública viabiliza a redução do investimento inicial com equipamentos, com infraestrutura e com pessoal para iniciar a operação, visto que torna possível adiar a instalação desses recursos na empresa até que a operação se demonstre economicamente viável. IV. Um serviço de nuvem pública propicia aumento de segurança da informação, pois as rotinas de segurança são responsabilidade do administrador da nuvem pública, não do contratante, o que contrasta com um servidor localizado dentro da empresa. É correto apenas o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I e II."
+        },
+        {
+          "label": "B",
+          "text": "I e III."
+        },
+        {
+          "label": "C",
+          "text": "II e IV."
+        },
+        {
+          "label": "D",
+          "text": "I, III e IV."
+        },
+        {
+          "label": "E",
+          "text": "II, III e IV."
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 21,
+      "statement": "A fim de melhorar a qualidade de vida de seus cidadãos e de criar eficiência nos serviços e nas operações urbanas, um grupo de vereadores de uma pequena cidade decidiu fazer algumas propostas de lei que, se aprovadas e devidamente implementadas, tendem a aproximar a cidade do conceito de “cidade inteligente” por meio da implementação de novos sistemas de software. O grupo de vereadores, preocupado com acessibilidade, consultou especialistas da área de interação humano-computador (IHC) e levantou informações a respeito de fundamentos de acessibilidade em IHC. Entre eles, estão os seguintes: Fundamento 1. Um produto ou serviço é equitativo quando é projetado de modo que possa atender a todos os usuários, independentemente de suas habilidades físicas, sensoriais ou cognitivas. Fundamento 2. Um produto ou serviço deve ter informações perceptíveis, o que pode envolver o uso de recursos como, por exemplo, texto alternativo para imagens ou contrastes de cores suficientes para usuários com deficiências visuais ou com daltonismo. Considerando esse contexto, avalie as afirmações a seguir. I. Uma lei que prevê que semáforos devem exibir ícones universais associados a cada uma de suas cores está relacionada ao Fundamento 1. II. Ainda que esteja relacionado à acessibilidade em IHC, o Fundamento 1 deixa de tratar da inclusão de pessoas cegas. III. Dado que a cidade possui uma página na web para a obtenção de informações, uma lei que preveja a existência de telas digitais públicas que permitam o acesso às informações disponibilizadas é suficiente para caracterizar a aplicação do Fundamento 2. É correto o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I, apenas."
+        },
+        {
+          "label": "B",
+          "text": "II, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e III, apenas."
+        },
+        {
+          "label": "D",
+          "text": "II e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "A",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 22,
+      "statement": "Considere um banco relacional com três tabelas. Transcrição conferida do esquema: pessoa(id_pessoa PK, nome, cpf, rg, data_cadastro); cliente(id_cliente PK/FK para pessoa.id_pessoa, data_cadastro, limite_credito, saldo_compras, saldo_devedor); funcionario(id_funcionario PK/FK para pessoa.id_pessoa, data_cadastro, cntps, matricula, pis, salario).\n\nEscolha a consulta SQL que lista nome e saldo devedor dos clientes que também são funcionários e têm saldo devedor maior que o salário, ordenada por saldo devedor crescente.",
+      "options": [
+        {
+          "label": "A",
+          "text": "SELECT * FROM cliente as c INNER JOIN pessoa as p, funcionario as f WHERE c.saldo_devedor > f.salario AND c.id_cliente=p.id_pessoa AND f.id_funcionario=p.id_pessoa ORDER BY c.saldo_devedor ASC"
+        },
+        {
+          "label": "B",
+          "text": "SELECT p.nome, c.saldo_devedor FROM cliente as c, pessoa as p WHERE c.saldo_devedor > f.salario AND c.id_cliente=p.id_pessoa AND f.id_funcionario=p.id_pessoa ORDER BY c.saldo_devedor DESC"
+        },
+        {
+          "label": "C",
+          "text": "SELECT p.nome, c.saldo_devedor FROM cliente as c, pessoa as p, funcionario as f WHERE c.saldo_devedor < f.salario AND c.id_cliente=p.id_pessoa AND f.id_funcionario=p.id_pessoa ORDER BY c.saldo_devedor ASC"
+        },
+        {
+          "label": "D",
+          "text": "SELECT p.nome, c.saldo_devedor FROM cliente as c LEFT OUTER JOIN pessoa as p on c.id_cliente=p.id_pessoa LEFT OUTER JOIN funcionario as f on p.id_pessoa=f.id_funcionario WHERE c.saldo_devedor > f.salario ORDER BY f.salario, c.saldo_devedor ASC"
+        },
+        {
+          "label": "E",
+          "text": "SELECT p.nome, c.saldo_devedor FROM cliente c RIGHT OUTER JOIN pessoa p ON c.id_cliente=p.id_pessoa RIGHT OUTER JOIN funcionario f ON p.id_pessoa=f.id_funcionario WHERE c.saldo_devedor > f.salario ORDER BY c.saldo_devedor ASC"
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 23,
+      "statement": "As figuras a seguir representam dois circuitos que possuem a finalidade de construção de filtros para sinais analógicos. Figura 1: entrada Vin passa por capacitor de 180 pF até nó ligado a resistor de 10 kΩ ao terra e à entrada não inversora de amplificador operacional ideal em seguidor de tensão. Figura 2: entrada Vin passa por resistor de 18 kΩ até nó ligado a resistor de 1,8 kΩ em paralelo com capacitor de 100 pF na realimentação para Vout; a entrada não inversora está aterrada. Considerando que os amplificadores operacionais apresentados são ideais, avalie as afirmações a seguir. I. Existe uma faixa de frequências na qual a impedância de entrada do circuito da Figura 1 é inferior à do circuito da Figura 2. II. Ambos os circuitos realizam a função de filtro passa-baixa de primeira ordem. III. A frequência de corte de ambos os filtros é igual. É correto o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I, apenas."
+        },
+        {
+          "label": "B",
+          "text": "II, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e III, apenas."
+        },
+        {
+          "label": "D",
+          "text": "II e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "A",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 24,
+      "statement": "Um determinado sistema embarcado possui uma porta paralela de 8 bits, na qual cada pino pode ser configurado individualmente como interface de entrada ou de saída. A direção de cada pino da porta é definida pelo bit correspondente do registrador de direção de 8 bits PORT_DIR da seguinte forma: valor 0 para configuração como entrada e valor 1 para configuração como saída. Os bits de entrada da porta são armazenados no registrador PORT_IN e os bits de saída da porta são armazenados no registrador PORT_OUT, ambos de 8 bits. Os pinos que correspondem ao nibble (conjunto de 4 bits) menos significativo da porta de I/O são conectados aos seguintes dispositivos externos: alarme (SPK1), chave 2 (CH2), LED (LED1) e chave 1 (CH1), conforme este mapeamento conferido: P3 liga ao alarme SPK1; P2 liga à chave CH2; P1 liga ao LED1; P0 liga à chave CH1. O diagrama mostra os resistores de polarização das chaves e do LED. Considere que uma tensão V DD na porta corresponda ao valor lógico 1 e que uma tensão próxima a 0 V corresponda ao valor lógico 0. Com base nas informações apresentadas e no esquema da figura, avalie as afirmações a seguir. I. O nibble menos significativo do registrador PORT_DIR deverá ser carregado com o valor 9 (decimal) pelo software do sistema para configuração adequada da porta de I/O. II. Quando ambas as chaves (1 e 2) estiverem fechadas simultaneamente, o registrador PORT_IN possuirá o valor binário X1X0 no nibble menos significativo (X significa irrelevante). III. Para acionar o alarme e o LED, simultaneamente, o registrador PORT_OUT deverá ser carregado com o valor binário 1X0X no nibble menos significativo (X significa irrelevante). É correto o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I, apenas."
+        },
+        {
+          "label": "B",
+          "text": "II, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e III, apenas."
+        },
+        {
+          "label": "D",
+          "text": "II e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "D",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 25,
+      "statement": "Os sistemas digitais são componentes essenciais em uma ampla variedade de aplicações, desde dispositivos eletrônicos portáteis até sistemas de controle industrial. Um dos principais aspectos do projeto desse tipo de sistema é a descrição do circuito em uma Hardware Description Language (HDL), como Verilog ou VHDL. Essas linguagens permitem descrever o comportamento e a estrutura do circuito de forma abstrata, viabilizando a síntese e a simulação do sistema. Um exemplo de circuito sequencial é o contador de 4 bits assíncrono, mostrado na figura a seguir, o qual foi implementado utilizando flip-flops JK. O diagrama mostra um contador assíncrono de 4 bits em cascata, implementado com quatro flip-flops JK.\n\nNesse contexto, considere que um engenheiro proponha as duas traduções desse circuito em Verilog e VHDL, equivalentes entre si, conforme observado a seguir. Verilog:\nmodule contador_4bits (input wire clk, input wire reset, output reg [1:0] count);\nalways @(posedge clk or posedge reset) begin\n  if (reset) count <= 0;\n  else count <= count + 1;\nend\nendmodule\n\nVHDL:\nlibrary ieee; use ieee.std_logic_1164.all;\nentity contador_4bits is port (clk : in std_logic; reset : in std_logic; count : out integer range 0 to 3); end entity;\narchitecture behavioral of contador_4bits is begin\nprocess(clk, reset) variable q : integer range 0 to 3; begin\n  if reset = '1' then q := 0; elsif rising_edge(clk) then q := q + 1; end if;\n  count <= q;\nend process; end architecture;\n\nConsiderando as informações apresentadas, avalie as asserções a seguir e a relação proposta entre elas. I. Qualquer um dos códigos corresponde ao circuito contador de 4 bits mostrado na figura. PORQUE II. Ao atingir o valor máximo da contagem, o valor da saída será zerado no próximo ciclo de clock e o processo será reiniciado. A respeito dessas asserções, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I."
+        },
+        {
+          "label": "B",
+          "text": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I."
+        },
+        {
+          "label": "C",
+          "text": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa."
+        },
+        {
+          "label": "D",
+          "text": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira."
+        },
+        {
+          "label": "E",
+          "text": "As asserções I e II são falsas."
+        }
+      ],
+      "correctOption": "D",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 26,
+      "statement": "Considere um cenário em que um computador seja organizado com múltiplos processadores, os quais compartilham a mesma memória RAM. Cada processador possui múltiplos núcleos. Nesse arranjo, o sistema operacional permite múltiplas threads, as quais podem ser dinamicamente alocadas para execução em diferentes núcleos e processadores. A partir das informações apresentadas nessa situação, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "Sistemas com múltiplos processadores devem alocar a mesma quantidade de memória RAM para cada processador do arranjo."
+        },
+        {
+          "label": "B",
+          "text": "Como há múltiplos processadores, são desnecessários os semáforos, uma vez que não há acessos concorrentes a recursos compartilhados."
+        },
+        {
+          "label": "C",
+          "text": "Como a exclusão mútua não é possível em arquitetura de múltiplos processadores, apenas uma aplicação pode ser executada de cada vez, mas com múltiplas threads."
+        },
+        {
+          "label": "D",
+          "text": "Os processos que possuem múltiplas threads em execução são mantidos por meio de funções da biblioteca no código da aplicação e dispensam serviços do sistema operacional."
+        },
+        {
+          "label": "E",
+          "text": "Dados trocados durante a comunicação entre processos podem ser armazenados nas áreas de memória compartilhada, mas o acesso a essas áreas é intermediado pelo sistema operacional."
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 27,
+      "statement": "A técnica de virtualização de hardware consiste em emular um computador no qual a camada de software é executada sem que detalhes do computador físico e de seus componentes sejam expostos. Em um ambiente de computação distribuída, a técnica pode ser útil para que o sistema operacional e os softwares do usuário sejam executados em uma máquina virtual com características permanentes, em conformidade com o que foi projetado, verificado e validado, mesmo que um computador físico diferente seja empregado. Com base nesse contexto, é correto afirmar que",
+      "options": [
+        {
+          "label": "A",
+          "text": "adquirir licenças de software do usuário no volume de uma licença para cada computador físico, o que favorece a economia de licenças, pois softwares em máquinas virtuais não correspondem a cópias extras."
+        },
+        {
+          "label": "B",
+          "text": "utilizar um computador com capacidade extra de comunicação de dados para favorecer o seu desempenho, pois um sistema distribuído em máquinas virtuais consome mais recursos de rede do que o mesmo sistema distribuído sendo executado em um computador físico."
+        },
+        {
+          "label": "C",
+          "text": "utilizar um computador com capacidade extra de memória principal para favorecer o seu desempenho, pois um sistema distribuído em máquinas virtuais requer mais espaço de memória física do que o mesmo sistema distribuído sendo executado em um computador físico."
+        },
+        {
+          "label": "D",
+          "text": "adquirir computadores físicos com processadores similares para favorecer a compatibilidade, pois sistemas distribuídos fortemente acoplados compartilham recursos intensamente, funcionando de forma mais eficiente em máquinas virtuais quando os computadores físicos são compatíveis."
+        },
+        {
+          "label": "E",
+          "text": "adquirir dispositivos de armazenamento físico com, pelo menos, o dobro da capacidade do dispositivo virtual a ser usado a fim de favorecer a disponibilidade, pois os sistemas operacionais da máquina virtual e da máquina física devem ter espaço equivalente de dados para que exista o mapeamento direto entre o dispositivo virtual e o dispositivo físico."
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 28,
+      "statement": "Alguns sistemas com memória virtual utilizam uma técnica chamada de paginação. Nesses sistemas, existe um conjunto de endereços de memória, denominados endereços virtuais, que são gerados durante a execução dos programas, com o uso de indexação, de registradores-base, de registradores-segmento ou de outras técnicas. Um endereço virtual é dividido em número de página virtual e deslocamento. O número de página virtual é usado como índice dentro da tabela de páginas para encontrar o quadro correspondente. O endereço físico de memória é a concatenação entre o endereço do quadro com o deslocamento do endereço virtual. Um mecanismo denominado TLB (do inglês, translation lookaside buffer), tipicamente implementado em hardware, fornece auxílio durante a atividade de mapeamento de endereços virtuais para endereços físicos sem passar pela tabela de página. A função do TLB é agilizar o processo de tradução de endereços lógicos para físicos. TANENBAUM, A. S. Sistemas Operacionais Modernos. 3. ed. São Paulo: Pearson Prentice Hall, 2009 (adaptado). Com relação à memória paginada, avalie as asserções a seguir e a relação proposta entre elas. I. Quando um processo é escalonado para execução, tanto a MMU (Memory Management Unit) quanto o TLB são reconfigurados para o novo processo. PORQUE II. Para livrar-se de resíduos do processo executado anteriormente, a tabela de páginas do novo processo deve tornar-se a tabela atual, o que, em geral, é feito por meio da cópia da tabela ou de um ponteiro para ela em registradores em hardware. A respeito dessas asserções, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I."
+        },
+        {
+          "label": "B",
+          "text": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I."
+        },
+        {
+          "label": "C",
+          "text": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa."
+        },
+        {
+          "label": "D",
+          "text": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira."
+        },
+        {
+          "label": "E",
+          "text": "As asserções I e II são proposições falsas."
+        }
+      ],
+      "correctOption": "A",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 29,
+      "statement": "Considere que uma equipe de engenheiros projete um sistema robótico para reciclagem de resíduos sólidos, o qual utiliza visão computacional para separar objetos de plástico e de vidro. Com o objetivo de automatizar o processo de classificação, opta-se pela técnica support vector machine (SVM). No método SVM, i é o índice do vetor suporte (1 ≤ i ≤ 5), w é o coeficiente angular (peso) e b é o coeficiente linear (polarização) da reta de separação. O par ordenado (x, y) é a saída do sistema de Visão Computacional que representa os vetores de características dos supostos materiais, plástico ou vidro, com classificação normalizada em ƒ (i) Î {-1, +1} . A separação linear é dada por f(i)=+1 quando w·x_i+b−y_i ≥ 0 e f(i)=−1 quando w·x_i+b−y_i < 0.\n\nO pseudocódigo usa w = 0,4 e b = 2,7. Para i de 1 a 5, calcula yr = w × x[i] + b; se yr − y[i] > 0, define f[i] = 1; caso contrário, f[i] = −1. Depois, escreve “Plástico” quando f[i] = −1 e “Vidro” nos demais casos.\n\nTabela de teste: i = 1,2,3,4,5; x = 3,6,4,5,1; y = 7,6,4,3,2.\n\nConsiderando essas informações, assinale a opção que apresenta a classificação correta da sequência dos materiais na saída do algoritmo.",
+      "options": [
+        {
+          "label": "A",
+          "text": "Plástico, Vidro, Vidro, Plástico, Vidro."
+        },
+        {
+          "label": "B",
+          "text": "Plástico, Plástico, Vidro, Vidro, Vidro."
+        },
+        {
+          "label": "C",
+          "text": "Plástico, Vidro, Plástico, Vidro, Vidro."
+        },
+        {
+          "label": "D",
+          "text": "Plástico, Plástico, Plástico, Vidro, Vidro."
+        },
+        {
+          "label": "E",
+          "text": "Plástico, Vidro, Vidro, Plástico, Plástico."
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 30,
+      "statement": "Considere que, para melhorar o desempenho de sistemas computacionais, projetistas de hardware decidam aumentar o número de processadores em vez de aumentar a frequência de clock. Dessa forma, surge a necessidade de utilizar softwares que explorem o paralelismo. Um problema típico encontrado no desenvolvimento desse tipo de software é a dependência de dados. Nesse contexto, considere que dois processadores precisem realizar, simultaneamente, o acesso a uma mesma matriz A. Com base nas informações apresentadas, com relação aos trechos de código em linguagem C apresentados a seguir, assinale a opção que apresenta uma situação de conflito de dados.",
+      "options": [
+        {
+          "label": "A",
+          "text": "Processador 1: int a = &A[0][0]; Processador 2: int b = &A[0][0];"
+        },
+        {
+          "label": "B",
+          "text": "Processador 1: *A[0][0] = 10; Processador 2: *A[0][1] = 20;"
+        },
+        {
+          "label": "C",
+          "text": "Processador 1: *A[0][0] = 10; Processador 2: int b = &A[0][0];"
+        },
+        {
+          "label": "D",
+          "text": "Processador 1: int a = &A[0][0]; Processador 2: *A[0][0] = 20;"
+        },
+        {
+          "label": "E",
+          "text": "Processador 1: *A[0][0] = 10; Processador 2: *A[0][0] = 20;"
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 31,
+      "statement": "Um sinal em tempo contínuo pode ser processado, a partir de suas amostras, por um sistema que opere em tempo discreto. Para isso, é importante manter a taxa de amostragem do sinal suficientemente alta para permitir a reconstrução do sinal original sem erro ou com um erro dentro de uma dada tolerância. LATHI, B. P. Sinais e Sistemas Lineares, 2. ed., Porto Alegre: Bookman, 2007 (adaptado). Nesse contexto, considerando o teorema da amostragem, avalie as asserções a seguir e a relação proposta entre elas. I. Para que um sinal contínuo seja reconstruído a partir de suas amostras é necessário que ele possua um espectro em frequência limitado e que a frequência de amostragem seja maior do que duas vezes a largura de faixa do sinal. PORQUE II. Na situação proposta, o espectro do sinal amostrado, será limitado em frequência, o que permitirá a reconstrução do sinal original antes da amostragem. A respeito dessas asserções, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I."
+        },
+        {
+          "label": "B",
+          "text": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I."
+        },
+        {
+          "label": "C",
+          "text": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa."
+        },
+        {
+          "label": "D",
+          "text": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira."
+        },
+        {
+          "label": "E",
+          "text": "As asserções I e II são proposições falsas."
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 32,
+      "statement": "Suponha que uma empresa de transportes deseje calcular uma rota de Manaus para São Paulo utilizando a estratégia da busca gulosa, técnica de busca local que seleciona a melhor alternativa disponível a cada passo. Observe, a seguir, um grafo de conexão de cidades até o destino final e o quadro com estimativas de distância de São Paulo até as demais cidades do grafo.\n\nTranscrição do grafo de conexões: Manaus liga a Porto Velho e Macapá; Porto Velho liga a Manaus, Palmas e Cuiabá; Macapá liga a Manaus e Belém; Belém liga a Macapá e Palmas; Palmas liga a Belém, Porto Velho e Goiânia; Cuiabá liga a Porto Velho e Goiânia; Goiânia liga a Cuiabá, Palmas e São Paulo; São Paulo liga a Goiânia. Estimativas de distância até São Paulo (km): Manaus 2693; Porto Velho 2464; Macapá 2665; Belém 2463; Palmas 1489; Cuiabá 1326; Goiânia 809; São Paulo 0. Macapá Manaus Belém Palmas Goiânia São Paulo Cuiabá Porto Velho CidadeDistância Manaus2 693 Km Porto Velho2 464 Km Macapá2 665 Km Belém2 463 Km Palmas1 489 Km Cuiabá1 326 Km Goiânia809 Km São Paulo0 Km\n\nCom base nessas informações, é correto afirmar que a solução encontrada a partir da utilização do algoritmo será",
+      "options": [
+        {
+          "label": "A",
+          "text": "Manaus → Macapá → São Paulo"
+        },
+        {
+          "label": "B",
+          "text": "Manaus → Porto Velho → Cuiabá → Goiânia → São Paulo"
+        },
+        {
+          "label": "C",
+          "text": "Manaus → Porto Velho → Palmas → Goiânia → São Paulo"
+        },
+        {
+          "label": "D",
+          "text": "Manaus → Macapá → Belém → Palmas → Goiânia → São Paulo"
+        },
+        {
+          "label": "E",
+          "text": "Manaus → Macapá → Belém → Palmas → Porto Velho → Cuiabá → Goiânia → São Paulo"
+        }
+      ],
+      "correctOption": "B",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 33,
+      "statement": "Considere que uma empresa planeje desenvolver um sistema de controle automático para manter, em um ambiente industrial, a temperatura constante por meio de um controlador proporcional-integral-derivativo (PID). O controlador PID pode ser implementado em qualquer linguagem que possua estruturas de dados adequadas para a manutenção do histórico e da taxa de mudança do sinal de erro. Considerando essa situação, avalie as afirmações a seguir. I. A implementação do componente Integral requer a soma de todos os erros acumulados desde o início da operação do sistema, o que torna necessário o uso de uma estrutura de dados do tipo fila. II. A parte Proporcional do controlador PID é implementada ao ajustar, proporcionalmente, a variável de controle à diferença entre a temperatura desejada e a temperatura atual. III. Uma pilha é adequada para o componente Derivativo, pois a taxa de mudança do erro é calculada apenas com a amostra mais recente e a anterior do sinal de erro. É correto o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I, apenas."
+        },
+        {
+          "label": "B",
+          "text": "II, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e III, apenas."
+        },
+        {
+          "label": "D",
+          "text": "II e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "D",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 34,
+      "statement": "Cada roteador em redes de computadores precisa implementar alguma estratégia de enfileiramento para controlar como os pacotes são armazenados em buffer enquanto esperam para serem transmitidos, independentemente do mecanismo de alocação de recursos. O algoritmo de enfileiramento aloca tanto largura de banda, ao transmitir pacotes, quanto espaço de buffer, ao decidir quais pacotes são descartados. PETERSON, L. L.; DAVIE, B. S. Redes de Computadores: uma abordagem de sistemas. Rio de Janeiro: Elsevier, 2013 (adaptado). Considerando as informações apresentadas, avalie as afirmações a seguir. I. O algoritmo FIFO (First-In, First-Out) é adequado para situações em que o tráfego de dados com rajadas de longa duração provoca descarte de pacotes. II. O algoritmo de enfileiramento justo ponderado (WFQ, do inglês Weighted Fair Queuing) permite definir um peso para cada fila, definindo quantos bits são transmitidos sempre que o roteador atender a uma determinada fila. III. O algoritmo de enfileiramento por prioridade (PQ, do inglês Priority Queuing) evita que uma fila de menor prioridade fique indefinidamente sem ser atendida (starvation), utilizando o algoritmo Round-Robin para servir a todas as filas. IV. Os roteadores que implementam o algoritmo de detecção antecipada aleatória (RED, do inglês Random Early Detection) mantêm a média acumulada do tamanho de suas filas e, quando esse tamanho ultrapassa, em algum enlace, um determinado limiar, uma fração dos pacotes é descartada aleatoriamente. É correto apenas o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I e III."
+        },
+        {
+          "label": "B",
+          "text": "I e IV."
+        },
+        {
+          "label": "C",
+          "text": "II e IV."
+        },
+        {
+          "label": "D",
+          "text": "I, II e III."
+        },
+        {
+          "label": "E",
+          "text": "II, III e IV."
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 35,
+      "statement": "O TCP (Transmission Control Protocol) e o UDP (User Datagram Protocol) são opções frequentemente usadas em sistemas distribuídos para realizar transferência de dados entre máquinas, ainda que não sejam os únicos protocolos que funcionam com base no protocolo IP (Internet Protocol). Com relação a esses protocolos, avalie as afirmações a seguir. I. O protocolo TCP é usado para implementar o mecanismo de sockets utilizado em sistemas distribuídos, como mecanismo de troca de mensagens confiável. II. O protocolo UDP é mais eficiente do que o protocolo TCP quanto ao tempo de envio de dados entre os nós de um sistema distribuído, pois gera menor overhead. III. O protocolo UDP é uma escolha adequada para fluxos de dados em tempo real, especialmente daqueles dados que admitem perda ou corrupção de parte de seu conteúdo, tais como vídeos ou voz. É correto o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "II, apenas."
+        },
+        {
+          "label": "B",
+          "text": "III, apenas."
+        },
+        {
+          "label": "C",
+          "text": "I e II, apenas."
+        },
+        {
+          "label": "D",
+          "text": "I e III, apenas."
+        },
+        {
+          "label": "E",
+          "text": "I, II e III."
+        }
+      ],
+      "correctOption": "E",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 36,
+      "statement": "A análise de desempenho de sistemas computacionais é uma atividade crítica para identificar gargalos, otimizar recursos e garantir a eficiência do hardware e do software utilizados. Nesse contexto, a respeito do impacto de desempenho gerado pelo número de threads e de núcleos de processamento em hardware e em software, assinale a opção correta.",
+      "options": [
+        {
+          "label": "A",
+          "text": "O desempenho do sistema aumenta de maneira linear em relação ao aumento do número de threads e de núcleos de processamento."
+        },
+        {
+          "label": "B",
+          "text": "O número de threads tem um impacto direto no desempenho do sistema, enquanto a influência do número de núcleos de processamento é insignificante."
+        },
+        {
+          "label": "C",
+          "text": "O desempenho do sistema é afetado positivamente pelo aumento do número de threads e de núcleos de processamento até um certo limite dependente da aplicação."
+        },
+        {
+          "label": "D",
+          "text": "O número de núcleos de processamento tem um impacto direto no desempenho do sistema, independentemente do número de threads utilizado."
+        },
+        {
+          "label": "E",
+          "text": "O número de threads e de núcleos de processamento não possui relação direta com o desempenho do sistema, pois esse resultado é determinado, exclusivamente, por técnicas e por algoritmos utilizados no software."
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 37,
+      "statement": "A segurança de sistemas de computação é uma preocupação crescente devido à constante evolução das ameaças e das vulnerabilidades presentes no ambiente digital. Garantir a integridade, a confidencialidade e a disponibilidade de dados e de recursos é essencial para proteger os sistemas e as informações sensíveis. A segurança abrange, também, aspectos como autenticação, controle de acesso, criptografia, detecção e prevenção de intrusões, entre outros mecanismos de proteção. A respeito da segurança de sistemas de computação, avalie as afirmações a seguir. I. A criptografia é um mecanismo que permite detectar a vulnerabilidade dos dados, tornando-os ilegíveis para usuários não autorizados. II. A auditoria de segurança é o processo de verificação de identidade de um usuário ou de um sistema, garantindo que apenas entidades confiáveis tenham acesso aos recursos. III. O controle de acesso consiste em definir e em gerenciar as permissões de usuários e de sistemas para acessar recursos e para realizar operações específicas. IV. A detecção e a prevenção de intrusão são técnicas utilizadas para identificar atividades maliciosas em um sistema e para tomar medidas a fim de evitar a ocorrência dessas atividades. É correto apenas o que se afirma em",
+      "options": [
+        {
+          "label": "A",
+          "text": "I e II."
+        },
+        {
+          "label": "B",
+          "text": "I e IV."
+        },
+        {
+          "label": "C",
+          "text": "III e IV."
+        },
+        {
+          "label": "D",
+          "text": "I, II e III."
+        },
+        {
+          "label": "E",
+          "text": "II, III e IV."
+        }
+      ],
+      "correctOption": "C",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    },
+    {
+      "originalNumber": 38,
+      "statement": "Os sistemas distribuídos consistem em múltiplos componentes de software que se comunicam e que cooperam entre si para realizar tarefas complexas. Um padrão arquitetural comumente utilizado em sistemas distribuídos é o de microsserviços, o qual divide o sistema em componentes independentes e escaláveis, cada um executando sua própria funcionalidade específica. Essa abordagem facilita a manutenção, o teste e a escalabilidade do sistema como um todo. Em relação a esse tema, qual dos seguintes benefícios é associado à arquitetura de microsserviços em sistemas distribuídos?",
+      "options": [
+        {
+          "label": "A",
+          "text": "Capacidade de escalabilidade."
+        },
+        {
+          "label": "B",
+          "text": "Garantia de consistência de dados."
+        },
+        {
+          "label": "C",
+          "text": "Melhor desempenho de processamento."
+        },
+        {
+          "label": "D",
+          "text": "Menor consumo de recursos de hardware."
+        },
+        {
+          "label": "E",
+          "text": "Redução da complexidade de comunicação entre os componentes."
+        }
+      ],
+      "correctOption": "A",
+      "annulled": false,
+      "needsReview": false,
+      "reviewNote": null
+    }
+  ]
+}

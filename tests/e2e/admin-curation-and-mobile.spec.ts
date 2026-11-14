@@ -75,6 +75,13 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
     });
     expect(edited.status()).toBe(200);
     expect((await edited.json()).correctOption).toBe("B");
+    await page.request.patch(`/api/admin/questions/${annulledQuestion.id}`, {
+      data: {
+        statement: annulledQuestion.statement,
+        options: options.map((text, index) => ({ label: String.fromCharCode(65 + index), text })),
+        correctOption: null,
+      },
+    });
 
     const publish = await page.request.post(`/api/admin/questions/${questionToPublish.id}`, { data: { action: "publish" } });
     expect(publish.status()).toBe(200);
@@ -90,6 +97,8 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
     })).status()).toBe(404);
 
     await page.getByPlaceholder("Buscar questão, área ou ano").fill(uiPublishQuestion.statement);
+    await page.getByRole("button", { name: "Revisar para publicar", exact: true }).click();
+    await page.getByRole("button", { name: /Salvar revisão/ }).click();
     await page.getByRole("button", { name: "Publicar", exact: true }).click();
     await expect(page.getByText("Questão publicada para os estudantes.")).toBeVisible();
     await expect(page.getByText("Nenhuma questão para revisar")).toBeVisible();
@@ -100,6 +109,20 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
     await expect(page.getByText("Nenhuma questão para revisar")).toBeVisible();
     await prisma.question.deleteMany({ where: { id: { in: [uiPublishQuestion.id, uiDiscardQuestion.id] } } });
 
+    await page.locator(".filter-bar input").fill("");
+    const filterPendingQuestion = await createPendingQuestion(6);
+    const statusSelect = page.locator(".filter-bar select");
+    await statusSelect.selectOption("PUBLISHED");
+    await expect(page.getByText("Edited statement for publication")).toBeVisible();
+    await expect(page.getByText(filterPendingQuestion.statement)).toHaveCount(0);
+    await statusSelect.selectOption("DISCARDED");
+    await expect(page.getByText(questionToDiscard.statement)).toBeVisible();
+    await expect(page.getByText(filterPendingQuestion.statement)).toHaveCount(0);
+    await statusSelect.selectOption("PENDING");
+    await expect(page.getByText(filterPendingQuestion.statement)).toBeVisible();
+    await expect(page.getByText("Edited statement for publication")).toHaveCount(0);
+    expect((await page.request.get("/api/admin/questions?status=INVALID")).status()).toBe(400);
+
     const createQuestionBatch = async (firstNumber: number, count: number, status: "PENDING" | "PUBLISHED") => {
       await prisma.question.createMany({ data: Array.from({ length: count }, (_, index) => ({
         editionId: edition.id,
@@ -107,6 +130,7 @@ test("admin edita, publica, descarta e acessa PDF protegido", async ({ page }) =
         statement: "Question used to measure curation response time",
         status,
         correctOption: "A",
+        reviewedAt: status === "PENDING" ? new Date() : null,
       })) });
       const created = await prisma.question.findMany({
         where: { editionId: edition.id, originalNumber: { gte: firstNumber, lt: firstNumber + count } },

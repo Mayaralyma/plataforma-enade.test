@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { requireRole } from "@/lib/session";
-import { calculateSimulationResult } from "@/lib/simulation";
+import { calculateSimulationResult, sanitizeSimulationForStudent } from "@/lib/simulation";
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   const access = await requireRole("STUDENT");
@@ -9,7 +9,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
   const { id } = await params;
   const simulation = await prisma.simulation.findFirst({ where: { id, userId: access.user.id }, include: { edition: true, answers: { orderBy: { question: { originalNumber: "asc" } } } } });
   if (!simulation) return Response.json({ error: "Simulado não encontrado." }, { status: 404 });
-  return Response.json(simulation);
+  return Response.json(sanitizeSimulationForStudent(simulation));
 }
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {

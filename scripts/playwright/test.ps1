@@ -36,7 +36,7 @@ try {
         if (-not $ready) { throw 'O servidor Next.js nao respondeu dentro de 120 segundos.' }
     }
 
-    & $playwright test
+    & $playwright test @args
     if ($LASTEXITCODE -ne 0) { throw "Os testes Playwright terminaram com codigo $LASTEXITCODE." }
 } finally {
     if ($serverStartedHere -and $server) {

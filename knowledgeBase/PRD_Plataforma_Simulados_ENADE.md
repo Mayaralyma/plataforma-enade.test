@@ -779,15 +779,12 @@ Seção sugerida no VF, sem origem nos materiais de partida; pode ser ajustada o
 
 | **ID** | **Pergunta** | **Afeta** |
 | --- | --- | --- |
-| PA-01 | Quais são as métricas de sucesso do produto? Os documentos de partida não as definem. | Seção 1.3 |
-| PA-03 | Recalibrar os SP de cada sprint após o Planning Poker. | Seção 10 |
-| PA-04 | Confirmar a tela de login com o Frontend administrador ou trocar para o Frontend aluno. | RF-ACS-01 |
-| PA-05 | Escolher as provas reais do ENADE usadas nos testes de extração. | RF-IMP-02, RNF-01 |
-| PA-06 | Decidir sobre hospedagem remota, R2, PDF.js e pdf-lib. | Seções 2.2, 9.3 e 11 |
-| PA-07 | Validar a integração do Better Auth (decisão adotada, com validação pendente). | RF-ACS-01, RNF-05 |
-| PA-08 | O Backlog/EAP lista outra equipe (João Pedro Veras, Enzo Rios Veras Ost Lopes, Arthur Gabriel Santos Lopes, Antônio Lucas de Oliveira Neto e Fernando Levy). Este PRD adota a equipe do VF; confirmar. | Capa, seção 10.2 |
-| PA-09 | Na seção 1.2 do VF, Henrique aparece em Backend e em Extração, mas as seções 4.1 e 5 colocam a Extração com Irapuam. Este PRD segue a versão das sprints; confirmar. | Seções 10.2 e 12 |
-| PA-10 | Os documentos de partida não definem requisitos de sessão, política de senha, retenção de dados ou backup. Definir se serão necessários. | RNF-04, RNF-05 |
+| PA-01 | Definir métricas de sucesso do produto (uso, conclusão de simulados e qualidade percebida, por exemplo). | Seção 1.3 |
+| PA-03 | Recalibrar os Story Points após Planning Poker. Pendência de planejamento, sem impacto na implementação já validada. | Seção 10 |
+| PA-06 | Confirmar se hospedagem remota, R2, visualização PDF.js e exportação pdf-lib permanecem adiados. OCR só é necessário se forem aceitos PDFs digitalizados. | Seções 2.2, 9.3 e 11 |
+| PA-08 | Confirmar a equipe responsável: o Backlog/EAP e o VF apresentam equipes diferentes. | Capa, seção 10.2 |
+| PA-09 | Confirmar a responsabilidade pela extração: o VF diverge entre Henrique e Irapuam. | Seções 10.2 e 12 |
+| PA-10 | Definir requisitos operacionais de sessão, política de senha, retenção de dados e backup antes de uma operação continuada. | RNF-04, RNF-05 |
 
 ## 13.2 Decisões tomadas
 
@@ -798,6 +795,9 @@ Seção sugerida no VF, sem origem nos materiais de partida; pode ser ajustada o
 | APIs de PB03 e PB05 | Ficam com o Backend, junto às APIs de PB04, PB06 e PB07 | VF 1.3 |
 | APIs de PB01 e PB02 | Ficam com a frente de extração (upload, fila e gabarito), por estarem ligadas ao worker | VF 1.3 |
 | PB10 | Hash de senha com o Backend (Better Auth); preservação do PDF original com a extração | VF 1.3 |
-| Tela de login (PB08) | Frontend administrador (sugestão para equilibrar a carga); pode ser trocada | VF 1.3 |
+| Tela de login (PB08) | Frontend administrador; cadastro e login foram validados ponta a ponta | VF 1.3; revalidação PB10 |
 | Armazenamento de PDFs | Volume Docker ou diretório local em desenvolvimento; R2 opcional | VF 2.5 |
 | PA-02 / PB12 | p95 de publicar/descartar <= 500 ms com 1.000+ questões revisadas; p95 de alto volume <= p95 de baixo volume + 200 ms. Medição local com 30 amostras por ação e aquecimento. | Decisão da equipe em 11/11/2026 |
+| PA-04 / PB08 | Tela de login do administrador adotada; cadastro e login validados ponta a ponta. | VF 1.3; revalidação PB10 |
+| PA-05 | Provas de 2021 e 2023 selecionadas; sete fixtures de seis áreas de 2021 e uma de 2023 validadas estruturalmente. | Revalidação PB14 |
+| PA-07 | Better Auth integrado; cadastro/login e armazenamento de senha com hash validados. | Revalidação PB10 |

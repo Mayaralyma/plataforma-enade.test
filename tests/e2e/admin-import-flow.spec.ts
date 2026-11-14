@@ -95,6 +95,15 @@ test("admin importa PDF, aplica gabarito e worker reexecuta sem duplicar questoe
       throw new Error(`Worker nao iniciou. Saida: ${workerOutput}\n${String(error)}`);
     }
 
+    const enqueueRetry = async (retryEditionId: string) => {
+      const retryJob = await prisma.importJob.create({ data: { editionId: retryEditionId } });
+      const queue = new PgBoss({ connectionString: process.env.DATABASE_URL });
+      await queue.start();
+      await queue.send("extract-exam", { jobId: retryJob.id }, { singletonKey: retryJob.id });
+      await queue.stop();
+      return waitForJob(page, retryJob.id);
+    };
+
     const year = 2004 + Math.floor(Math.random() * 90);
     const area = `E2E ${randomUUID()}`;
     const pdf = await readFile("knowledgeBase/EQUIPE_5_VFINAL.pdf");
@@ -141,8 +150,30 @@ test("admin importa PDF, aplica gabarito e worker reexecuta sem duplicar questoe
     const retried = await waitForJob(page, retryJob.id);
     expect(retried.status).toBe("COMPLETED");
     expect(retried.totalFound).toBe(completed.totalFound);
-    expect(retried.totalFailed).toBe(0);
+    expect(retried.totalFailed).toBe(completed.totalFailed);
     expect(await prisma.question.count({ where: { editionId } })).toBe(questionCountBeforeRetry);
+
+    const stalePending = keyedQuestions.find((question) => question.originalNumber === 3) ?? keyedQuestions[2];
+    await prisma.question.update({ where: { id: stalePending.id }, data: { statement: "Texto pendente desatualizado" } });
+    const pendingRetry = await enqueueRetry(editionId);
+    expect(pendingRetry.status).toBe("COMPLETED");
+    const refreshedPending = await prisma.question.findUniqueOrThrow({ where: { id: stalePending.id } });
+    expect(refreshedPending.status).toBe("PENDING");
+    expect(refreshedPending.statement).not.toBe("Texto pendente desatualizado");
+
+    const preservedPublished = keyedQuestions[0];
+    await prisma.option.deleteMany({ where: { questionId: preservedPublished.id } });
+    await prisma.option.createMany({
+      data: ["A", "B", "C", "D", "E"].map((label) => ({ questionId: preservedPublished.id, label, text: `Opção ${label}` })),
+    });
+    await prisma.question.update({ where: { id: preservedPublished.id }, data: { correctOption: "A", annulled: false, reviewedAt: new Date() } });
+    expect((await page.request.post(`/api/admin/questions/${preservedPublished.id}`, { data: { action: "publish" } })).status()).toBe(200);
+    await prisma.question.update({ where: { id: preservedPublished.id }, data: { statement: "Texto publicado preservado" } });
+    const publishedRetry = await enqueueRetry(editionId);
+    expect(publishedRetry.status).toBe("COMPLETED");
+    const refreshedPublished = await prisma.question.findUniqueOrThrow({ where: { id: preservedPublished.id } });
+    expect(refreshedPublished.status).toBe("PUBLISHED");
+    expect(refreshedPublished.statement).toBe("Texto publicado preservado");
 
     const officialProofPath = "data/official-enade/2023-engenharia-computacao/enade-2023-engenharia-computacao.pdf";
     const officialKeyPath = "data/official-enade/2023-engenharia-computacao/gabarito-2023-engenharia-computacao.pdf";
