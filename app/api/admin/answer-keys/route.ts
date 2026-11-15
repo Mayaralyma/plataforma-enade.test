@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
+import { applyAnswerKey } from "@/lib/answer-key";
 import { prisma } from "@/lib/prisma";
 import { parseAnswerKey } from "@/lib/pdf-parser";
 import { requireRole } from "@/lib/session";
@@ -21,18 +22,7 @@ export async function POST(request: Request) {
   await mkdir(storage, { recursive: true });
   const keyPath = path.join(storage, `${randomUUID()}-${file.name.replace(/[^\w.-]/g, "_")}`);
   await writeFile(keyPath, raw, "utf8");
-  let updated = 0;
-  for (const [number, answer] of key) {
-    await prisma.answerKeyEntry.upsert({
-      where: { editionId_originalNumber: { editionId, originalNumber: number } },
-      update: { correctOption: answer, annulled: answer === null },
-      create: { editionId, originalNumber: number, correctOption: answer, annulled: answer === null },
-    });
-    const question = await prisma.question.findUnique({ where: { editionId_originalNumber: { editionId, originalNumber: number } } });
-    if (!question) continue;
-    await prisma.question.update({ where: { id: question.id }, data: { correctOption: answer, annulled: answer === null } });
-    updated++;
-  }
+  const result = await applyAnswerKey(editionId, key);
   await prisma.edition.update({ where: { id: editionId }, data: { answerKeyPath: keyPath } });
-  return Response.json({ updated, provided: key.size });
+  return Response.json(result);
 }

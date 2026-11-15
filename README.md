@@ -21,6 +21,17 @@ O Compose inicia PostgreSQL, a aplicação web e o worker de extração. O banco
 2. Execute `npm install`, `npm run db:deploy` e `npm run dev` em um terminal.
 3. Em outro terminal, execute `npm run worker`.
 
+## Administração de usuários
+
+`ADMIN_EMAILS` define o perfil apenas no momento do cadastro. Para promover ou rebaixar uma conta já existente, use o comando abaixo com o banco configurado:
+
+```powershell
+npm run user:role -- --email pessoa@exemplo.com --role ADMIN
+npm run user:role -- --email pessoa@exemplo.com --role STUDENT
+```
+
+O e-mail é comparado sem diferenciar maiúsculas de minúsculas. O comando valida o papel, falha se o usuário não existir e não altera nada quando o papel já é o desejado.
+
 ## Fluxos disponíveis
 
 - Cadastro/login por e-mail e senha, com controle de perfil no servidor.
@@ -32,10 +43,11 @@ O Compose inicia PostgreSQL, a aplicação web e o worker de extração. O banco
 
 ## Observações de implementação
 
-- O parser inicial foi feito para provas digitais com texto selecionável e padrões simples de numeração e alternativas A–E. A extração precisa ser calibrada com as provas escolhidas pela equipe; conteúdo com figuras, tabelas e gráficos exige conferência manual. OCR permanece fora do escopo inicial do PRD.
+- O parser inicial foi feito para provas digitais com texto selecionável e padrões simples de numeração e alternativas A–E. A extração foi calibrada com as sete provas oficiais versionadas; conteúdo com figuras, tabelas e gráficos ainda exige conferência manual. OCR permanece fora do escopo inicial do PRD.
+- O extrator também detecta imagens embutidas no PDF, inclusive JPEG, ignora imagens decorativas repetidas e associa o aviso visual à questão mais próxima na mesma coluna. A calibração atual cobre as sete provas oficiais versionadas em `data/official-enade/` (seis de 2021 e uma de 2023); a conferência humana continua necessária.
 - O gabarito aceito nesta primeira versão é TXT/CSV em linhas `número; alternativa`, incluindo `ANULADA`. A associação é feita pelo número original da questão.
 - O banco usa a migração inicial do Prisma. Para um ambiente publicado, configure armazenamento privado de arquivos antes da implantação.
-- O PRD ainda deixa pendentes a definição de métrica de sucesso, meta numérica para “resposta rápida”, provas de validação, hospedagem e algumas responsabilidades da equipe.
+- O PRD ainda deixa pendentes a definição de métrica de sucesso, decisões de hospedagem/armazenamento, requisitos de sessão/retenção/backup e algumas responsabilidades da equipe. As metas de resposta rápida (PA-02) e as provas de validação (PA-05) já foram definidas.
 
 ## Comandos úteis
 
@@ -44,6 +56,7 @@ O Compose inicia PostgreSQL, a aplicação web e o worker de extração. O banco
 - `npm run typecheck`: verifica os tipos TypeScript.
 - `npm run lint`: executa ESLint.
 - `npm test`: executa os testes unitários Vitest.
+- `npm run validate:official-enade` / `npm run validate:official-enade:2021`: validam o parser contra as provas oficiais versionadas em `data/official-enade/` sem banco de dados.
 - `npm run test:e2e`: executa o fluxo Playwright. Antes, configure `.env`, inicie o PostgreSQL portátil (`npm run db:local:start`), aplique a migração (`npm run db:deploy`), carregue os dados demonstrativos (`npm run db:seed`) e instale o Chromium na pasta ignorada do projeto (`npm run playwright:install`). O Playwright inicia o Next.js local automaticamente.
 - `npm run db:local:install`: baixa e verifica o ZIP oficial do PostgreSQL 16.15, instalando só `bin`, `lib` e `share` em `.local/postgres`. O cluster local fica em `.local/postgres-data`; nada é registrado como serviço do Windows.
 - `npm run db:local:start` / `npm run db:local:stop`: inicia ou para esse banco local sem apagar os dados.

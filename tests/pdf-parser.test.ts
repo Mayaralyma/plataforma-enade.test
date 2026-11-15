@@ -1,4 +1,5 @@
 ﻿import { describe, expect, it } from "vitest";
+import { pageBreakMarker, visualContentMarker } from "../lib/pdf-markers";
 import { extractQuestions, parseAnswerKey } from "../lib/pdf-parser";
 
 describe("parser de provas ENADE", () => {
@@ -463,6 +464,140 @@ it("parses official answer-key rows with the question label attached to the answ
   const answers = parseAnswerKey("QUESTÃO 32C\nQUESTÃO 33ANULADA\nQUESTÃO DISCURSIVA 3***");
 
   expect([...answers.entries()]).toEqual([[32, "C"], [33, null]]);
+});
+
+it("associates a visual marker that precedes a question heading with the next question", () => {
+  const questions = extractQuestions(`
+    QUESTAO 1
+    Enunciado da primeira questão.
+    A) A1
+    B) B1
+    C) C1
+    D) D1
+    E) E1
+    ${visualContentMarker}
+    QUESTAO 2
+    Enunciado da segunda questão.
+    A) A2
+    B) B2
+    C) C2
+    D) D2
+    E) E2
+  `);
+
+  expect(questions[0].needsReview).toBe(false);
+  expect(questions[1].reviewNote).toMatch(/imagem ou gráfico nesta questão/);
+  expect(questions[1].statement).not.toContain(visualContentMarker);
+  expect(questions[1].options.every(({ text }) => !text.includes(visualContentMarker))).toBe(true);
+});
+
+it("associates a visual marker inside a question with that question", () => {
+  const questions = extractQuestions(`
+    ${visualContentMarker}
+    QUESTAO 1
+    Enunciado com elemento visual.
+    TEXTO I
+    A) A1
+    B) B1
+    C) C1
+    D) D1
+    E) E1
+  `);
+
+  expect(questions[0].needsReview).toBe(true);
+  expect(questions[0].reviewNote).toMatch(/imagem ou gráfico nesta questão/);
+});
+
+it("ignores page-level visual fallback when visual markers are present", () => {
+  const questions = extractQuestions(`
+    QUESTAO 1
+    Enunciado da primeira questão.
+    A) A1
+    B) B1
+    C) C1
+    D) D1
+    E) E1
+    __ENADE_PAGE_BREAK_1__
+    ${visualContentMarker}
+    QUESTAO 2
+    Enunciado da segunda questão.
+    A) A2
+    B) B2
+    C) C2
+    D) D2
+    E) E2
+  `, { visualPages: new Set([1]) });
+
+  expect(questions[0].needsReview).toBe(false);
+  expect(questions[1].reviewNote).toMatch(/imagem ou gráfico nesta questão/);
+});
+
+it("moves a detached alternative after a page break into the empty option", () => {
+  const questions = extractQuestions(`
+    QUESTAO 1
+    Enunciado da primeira questão.
+    A) A1
+    B) B1
+    C)
+    D) D1
+    E) E1
+    Área livre
+    ${pageBreakMarker}
+    A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.
+    2CIÊNCIA DA COMPUTAÇÃO
+    QUESTAO 2
+    Enunciado da segunda questão.
+    A) A2
+    B) B2
+    C) C2
+    D) D2
+    E) E2
+  `);
+
+  expect(questions[0].options.map(({ text }) => text)).toEqual([
+    "A1",
+    "B1",
+    "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa.",
+    "D1",
+    "E1",
+  ]);
+});
+
+it("keeps option E continuation across a page break when all options are present", () => {
+  const questions = extractQuestions(`
+    QUESTAO 1
+    Enunciado da primeira questão.
+    A) A1
+    B) B1
+    C) C1
+    D) D1
+    E) Primeira parte da alternativa.
+    ${pageBreakMarker}
+    Segunda parte da alternativa.
+    QUESTAO 2
+    Enunciado da segunda questão.
+    A) A2
+    B) B2
+    C) C2
+    D) D2
+    E) E2
+  `);
+
+  expect(questions[0].options[4].text).toBe("Primeira parte da alternativa. Segunda parte da alternativa.");
+});
+
+it("removes course headers from alternatives", () => {
+  const questions = extractQuestions(`
+    QUESTAO 1
+    Enunciado da primeira questão.
+    A) A1
+    B) B1
+    C) C1
+    D) D1
+    E) E1 24CIÊNCIA DA COMPUTAÇÃO
+  `);
+
+  expect(questions[0].options[4].text).toBe("E1");
 });
 });
 

@@ -1,0 +1,66 @@
+{
+  "questions": [
+    {
+      "originalNumber": 2,
+      "statementAppend": "Transcrição da imagem da Embrapa: a hortaliça é considerada estragada se estiver amassada, machucada, quebrada ou sem a coloração apropriada. É considerada feia se tiver formato fora do padrão ou pequenas cicatrizes superficiais.",
+      "needsReview": true,
+      "reviewNote": "Transcrição auxiliar da camada textual do PDF; confirmar visualmente no documento original antes de aprovar a questão."
+    },
+    {
+      "originalNumber": 3,
+      "statementAppend": "Descrição da charge (Texto II): um carro vermelho ocupa a rua enquanto um ciclista aparece em primeiro plano; no céu estão as palavras “CICLOVIAS...” e “CICLOFAIXAS...”. A cena representa a disputa por espaço entre automóveis e bicicletas.",
+      "needsReview": true,
+      "reviewNote": "Descrição auxiliar da charge; confirmar visualmente no documento original antes de aprovar a questão."
+    },
+    {
+      "originalNumber": 5,
+      "statementAppend": "Descrição do mapa: mapa do Brasil com siglas dos estados e pontos proporcionais para suicídios indígenas na faixa de 10 a 14 anos, entre 2010 e 2014. A legenda usa círculos de tamanhos correspondentes a 1, 2, 3, 4, 5 e 6; há círculos maiores em áreas do Amazonas/Acre e de Mato Grosso do Sul.",
+      "needsReview": true,
+      "reviewNote": "Transcrição auxiliar incompleta: não informa os valores por estado. Conferir o mapa diretamente no PDF antes de aprovar a questão."
+    },
+    {
+      "originalNumber": 9,
+      "statementAppend": "Descrição do diagrama UML: Segurado e Seguro estão ligados por associação, com multiplicidade 1..1 do lado de Segurado e 0..n do lado de Seguro. Seguro é a superclasse das subclasses Residencial, Automotivo e Vida, ligadas por generalização.",
+      "needsReview": true,
+      "reviewNote": "Descrição auxiliar do diagrama UML; confirmar visualmente multiplicidades e generalização no documento original."
+    },
+    {
+      "originalNumber": 10,
+      "statementAppend": "Transcrição dos dados do gráfico de benefícios do uso de redes sociais: divulgação da marca, 53,0%; engajamento com a audiência, 44,2%; aumento de vendas e clientes, 38,1%; aumento de tráfego no blog/site, 35,0%; outros, 0,3%.",
+      "needsReview": true,
+      "reviewNote": "Transcrição auxiliar dos dados do gráfico; conferir rótulos e valores no documento original antes de aprovar a questão."
+    },
+    {
+      "originalNumber": 28,
+      "statementAppend": "Descrição da figura: “Governança de TI” aparece no centro. À esquerda estão “TI como prestadora de serviços”, “Ambientes de negócios” e “Marcos de regulação”; à direita, “Integração Tecnológica” e “Segurança da informação”. Os cinco fatores estão ligados ao bloco central.",
+      "needsReview": true,
+      "reviewNote": "Descrição auxiliar da figura; confirmar visualmente os fatores e suas ligações no documento original."
+    },
+    {
+      "originalNumber": 29,
+      "statementAppend": "Transcrição do diagrama entidade-relacionamento: ESPECIALIDADE (1,N) — Atua na — MEDICO (1,1); MEDICO (1,1) — Atende — CONSULTA (1,N); CONSULTA (1,N) — Agenda — FUNCIONARIO (0,1); CONSULTA (1,1) — Marca — PACIENTE (0,N); CONVENIO (1,1) — Possui — PACIENTE (0,N); PACIENTE (0,N) — Depende de — DEPENDENTE (1,1). Entidades: ESPECIALIDADE, MEDICO, FUNCIONARIO, CONSULTA, CONVENIO, PACIENTE e DEPENDENTE.",
+      "needsReview": true,
+      "reviewNote": "Transcrição auxiliar do diagrama; conferir entidades, relacionamentos e cardinalidades visualmente no documento original."
+    },
+    {
+      "originalNumber": 32,
+      "statementAppend": "Transcrição do diagrama de sequência (participantes: SAMU, Regulacao, API, hospitalA e hospitalB): 1 solicitarLeito() SAMU→Regulacao; 2 procurarLeitos() Regulacao→API; 3 verificarTodos() API→hospitalA; 4 procurarVaga() API→hospitalA; 5 procurarVaga() hospitalA→hospitalB; 6 disponibilidade hospitalA→API; 7 disponibilidade hospitalB→API; 8 vagas disponíveis API→Regulacao; 9 escolherLeito(hosp) Regulacao→API; 10 definirVaga() API→hospitalA; 11 ok hospitalA→API; 12 definirVaga() API→hospitalB; 13 ok hospitalB→API; 14 vaga definida API→Regulacao; 15 vaga Regulacao→SAMU.",
+      "needsReview": true,
+      "reviewNote": "Transcrição auxiliar do diagrama; confirmar participantes, ordem e direção das mensagens no documento original."
+    },
+    {
+      "originalNumber": 33,
+      "options": [
+        { "label": "A", "text": "Índice 0: vazio. Índice 1: (46,7) → (28,25) → (19,26). Índice 2: (20,22). Índice 3: vazio. Índice 4: (16,6). Índices 5 a 8: vazios." },
+        { "label": "B", "text": "Índice 0: (17,9). Índice 1: vazio → (46,7) → (28,25) → (19,26). Índice 2: (13,6). Índice 6: (20,22). Demais índices: vazios." },
+        { "label": "C", "text": "Índice 1: (46,7) → (28,25) → (19,26). Índice 2: (20,22). Índice 4: (13,6). Índice 8: (17,9). Demais índices: vazios." },
+        { "label": "D", "text": "Índice 1: (46,7). Índice 2: (20,22). Índice 3: (28,25). Índice 4: (13,6). Índice 5: (19,26). Índice 8: (17,9). Demais índices: vazios." },
+        { "label": "E", "text": "Índice 1: ponteiro para (46,7) → (28,25) → (19,26). Índice 2: ponteiro para (20,22). Índice 4: ponteiro para (13,6). Índice 8: ponteiro para (17,9). Índices 0, 3, 5, 6 e 7: vazios." }
+      ],
+      "annulled": true,
+      "correctOption": null,
+      "needsReview": true,
+      "reviewNote": "Opções transcritas a partir da descrição textual extraída do PDF; conferir as cinco tabelas no original. A questão está anulada no gabarito."
+    }
+  ]
+}

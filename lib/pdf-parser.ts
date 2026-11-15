@@ -1,9 +1,28 @@
-﻿export type ExtractedQuestion = { number: number; statement: string; options: { label: string; text: string }[]; needsReview: boolean; reviewNote?: string };
+﻿import { pageBreakMarker, visualContentMarker } from "./pdf-markers";
+
+export type ExtractedQuestion = { number: number; statement: string; options: { label: string; text: string }[]; needsReview: boolean; reviewNote?: string };
+export type ExtractQuestionsOptions = { visualPages?: ReadonlySet<number> };
+
+type QuestionCandidate = { number: number; lines: string[]; pages: number[]; visual: boolean };
 
 const optionStart = /^\s*([A-E])\s*[).:\-]\s*(.*)$/;
 const looseOptionStart = /^\s*([A-E])\s+(.*)$/;
 const standaloneOptionStart = /^\s*([A-E])\s*$/;
-const pageBreakMarker = "__ENADE_PAGE_BREAK__";
+const numberedPageMarker = /^__ENADE_PAGE_BREAK_(\d{1,3})__$/;
+const numberedPageMarkerPattern = /__ENADE_PAGE_BREAK_\d{1,3}__/g;
+
+function pageNumberFromLine(line: string) {
+  const match = line.match(numberedPageMarker);
+  return match ? Number(match[1]) : undefined;
+}
+
+function isPageBreakLine(line: string) {
+  return line === pageBreakMarker || numberedPageMarker.test(line);
+}
+
+function stripPageMarkers(text: string) {
+  return text.replaceAll(pageBreakMarker, " ").replaceAll(visualContentMarker, " ").replace(numberedPageMarkerPattern, " ");
+}
 const explicitQuestionStart = /^\s*QUEST.{0,5}O\s*(\d{1,3})\b(?:\s*[.)\-:]\s*(.*)|\s+(.*)|\s*)$/i;
 const numberedQuestionStart = /^\s*(\d{1,3})\s*[.)\-:]\s*(.*)$/;
 const flexibleQuestionStart = /^\s*QUEST.{0,5}O\s*(\d{1,3})\b(?:\s*[.)\-:]\s*(.*)|\s+(.*)|\s*)$/i;
@@ -21,6 +40,8 @@ function removePdfArtifacts(text: string) {
     .replace(/\bEngenharia[ \t]+de[ \t]+Computa.{0,8}[ \t]*\d{1,2}\b/gi, " ")
     .replace(/\b\d{1,2}[ \t]*Sistemas[ \t]+de[ \t]+informa.{0,8}\b/gi, " ")
     .replace(/\bSistemas[ \t]+de[ \t]+informa.{0,8}[ \t]+\d{1,2}\b/gi, " ")
+    .replace(/\b\d{1,2}[ \t]*(?:CI[ÊE]NCIA DA COMPUTA[ÇC][ÃA]O|LICENCIATURA EM COMPUTA[ÇC][ÃA]O|AN[ÁA]LISE E DESENVOLVIMENTO DE SISTEMAS|GEST[ÃA]O DA TECNOLOGIA DA INFORMA[ÇC][ÃA]O|REDES DE COMPUTADORES)[ \t]*\d{0,2}(?:[ \t]*MAT.{0,2}RIA)?/gi, " ")
+    .replace(/\b(?:CI[ÊE]NCIA DA COMPUTA[ÇC][ÃA]O|LICENCIATURA EM COMPUTA[ÇC][ÃA]O|AN[ÁA]LISE E DESENVOLVIMENTO DE SISTEMAS|GEST[ÃA]O DA TECNOLOGIA DA INFORMA[ÇC][ÃA]O|REDES DE COMPUTADORES)[ \t]*\d{1,2}\b/gi, " ")
     .replace(/(?:^|[^A-Z])(?:ÁREA|AREA)[ \t]+LIVRE\b/gi, " ")
     .replace(/\bLOGO[ \t]*\d*[ \t]*MAT.{0,2}RIA[ \t]*\d*/gi, " ")
     .replace(/(?:^|[^A-Z])\d{1,2}MAT.{0,2}RIA\b/gi, " ")
@@ -175,7 +196,7 @@ function findCompleteOptionSequences(lines: string[]) {
   return sequences;
 }
 
-export function extractQuestions(text: string): ExtractedQuestion[] {
+export function extractQuestions(text: string, extractOptions?: ExtractQuestionsOptions): ExtractedQuestion[] {
   const markedPageBreaks = text
     .replace(/\*\d{1,2}\*[ \t]*\*R\d{7,}\*/gi, "\n" + pageBreakMarker + "\n")
     .replace(/\*R\d{7,}\*/gi, "\n" + pageBreakMarker + "\n");
@@ -188,16 +209,55 @@ export function extractQuestions(text: string): ExtractedQuestion[] {
     const questionEnd = lines[perceptionStart].slice(0, markerIndex).trim();
     lines = [...lines.slice(0, perceptionStart), ...(questionEnd ? [questionEnd] : [])];
   }
+  const sawVisualMarkers = lines.includes(visualContentMarker);
   const hasExplicitHeadings = lines.some((line) => explicitQuestionStart.test(line) || flexibleQuestionStart.test(line));
-  const candidates: { number: number; lines: string[] }[] = [];
-  let current: { number: number; lines: string[] } | undefined;
+  const candidates: QuestionCandidate[] = [];
+  let current: QuestionCandidate | undefined;
+  let currentPage = 1;
+  let pendingVisual = false;
   for (const line of lines) {
+    if (line === visualContentMarker) {
+      pendingVisual = true;
+      continue;
+    }
+    const numberedPage = pageNumberFromLine(line);
+    if (numberedPage !== undefined) {
+      if (current) {
+        current.lines.push(line);
+        current.pages.push(numberedPage);
+      }
+      currentPage = numberedPage + 1;
+      continue;
+    }
+    if (line === pageBreakMarker) {
+      if (current) {
+        current.lines.push(line);
+        current.pages.push(currentPage);
+      }
+      continue;
+    }
     const match = line.match(explicitQuestionStart) ?? line.match(flexibleQuestionStart) ?? (!hasExplicitHeadings ? line.match(numberedQuestionStart) : null);
     if (match && Number(match[1]) <= 100) {
       if (current) candidates.push(current);
       const firstLine = match[2] ?? match[3] ?? "";
-      current = { number: Number(match[1]), lines: firstLine ? [firstLine] : [] };
-    } else if (current) current.lines.push(line);
+      const firstLines = firstLine ? [firstLine] : [];
+      current = {
+        number: Number(match[1]),
+        lines: pendingVisual ? [visualContentMarker, ...firstLines] : firstLines,
+        pages: [...(pendingVisual ? [currentPage] : []), ...(firstLine ? [currentPage] : [])],
+        visual: pendingVisual,
+      };
+      pendingVisual = false;
+    } else if (current) {
+      if (pendingVisual) {
+        current.lines.push(visualContentMarker);
+        current.pages.push(currentPage);
+        current.visual = true;
+        pendingVisual = false;
+      }
+      current.lines.push(line);
+      current.pages.push(currentPage);
+    }
   }
   if (current) candidates.push(current);
 
@@ -205,7 +265,9 @@ export function extractQuestions(text: string): ExtractedQuestion[] {
     const discursiveStart = candidate.lines.findIndex((line) =>
       /QUEST.{0,5}O\s+DISC.{0,10}\b\d{1,2}\b/i.test(line) || /COMPONENTE\s+ESPEC.{0,5}FICO/i.test(line),
     );
-    return discursiveStart < 0 ? candidate : { ...candidate, lines: candidate.lines.slice(0, discursiveStart) };
+    if (discursiveStart < 0) return candidate;
+    const lines = candidate.lines.slice(0, discursiveStart);
+    return { ...candidate, lines, pages: candidate.pages.slice(0, discursiveStart), visual: lines.includes(visualContentMarker) };
   });
 
   const candidatesWithDetachedHeadings = objectiveCandidates.flatMap((candidate, index) => {
@@ -216,13 +278,15 @@ export function extractQuestions(text: string): ExtractedQuestion[] {
     const first = sequences[0];
     const second = sequences.find((sequence) => sequence.start > first.end);
     if (!second) return [candidate];
-    const pageBreakIndex = candidate.lines.findIndex((line, lineIndex) => line === pageBreakMarker && lineIndex > first.end && lineIndex < second.start);
+    const pageBreakIndex = candidate.lines.findIndex((line, lineIndex) => isPageBreakLine(line) && lineIndex > first.end && lineIndex < second.start);
     if (pageBreakIndex < 0) return [candidate];
     const betweenSequences = candidate.lines.slice(pageBreakIndex + 1, second.start).join(" ").trim();
     if (betweenSequences.length < 80) return [candidate];
+    const firstLines = candidate.lines.slice(0, pageBreakIndex);
+    const secondLines = candidate.lines.slice(pageBreakIndex + 1, second.end + 1);
     return [
-      { number: candidate.number, lines: candidate.lines.slice(0, pageBreakIndex) },
-      { number: followingHeading.number, lines: candidate.lines.slice(pageBreakIndex + 1, second.end + 1) },
+      { number: candidate.number, lines: firstLines, pages: candidate.pages.slice(0, pageBreakIndex), visual: firstLines.includes(visualContentMarker) },
+      { number: followingHeading.number, lines: secondLines, pages: candidate.pages.slice(pageBreakIndex + 1, second.end + 1), visual: secondLines.includes(visualContentMarker) || followingHeading.visual },
       followingHeading,
     ];
   });
@@ -251,8 +315,24 @@ export function extractQuestions(text: string): ExtractedQuestion[] {
       }
     }
     if (bestSequence.length >= 2) for (const entry of bestSequence) looseOptionLines.set(entry.index, entry.label!);
+    const labels = ["A", "B", "C", "D", "E"];
+    const hasEmptyOption = () => labels.some((label) => !options[label] || options[label].join(" ").trim() === "");
+    const detachedLines: string[] = [];
+    let collectingDetached = false;
     let active: string | undefined;
     for (const [index, line] of candidate.lines.entries()) {
+      if (isPageBreakLine(line)) {
+        if (!collectingDetached && active === "E" && hasEmptyOption()) {
+          collectingDetached = true;
+          active = undefined;
+        }
+        continue;
+      }
+      if (line === visualContentMarker) continue;
+      if (collectingDetached) {
+        detachedLines.push(line);
+        continue;
+      }
       const match = line.match(optionStart);
       const looseLabel = looseOptionLines.get(index);
       if (looseLabel) {
@@ -262,7 +342,8 @@ export function extractQuestions(text: string): ExtractedQuestion[] {
       else if (active) options[active].push(line);
       else statement.push(line);
     }
-    const labels = ["A", "B", "C", "D", "E"];
+    const emptyLabel = labels.find((label) => !options[label] || options[label].join(" ").trim() === "");
+    if (emptyLabel && detachedLines.length) options[emptyLabel] = [detachedLines.join(" ")];
     if (!statement.length && !Object.keys(options).length) continue;
     const missingOptions = labels.some((label) => !options[label]);
     const hasStatement = statement.length > 0;
@@ -277,13 +358,17 @@ export function extractQuestions(text: string): ExtractedQuestion[] {
       if (promptIndex < 0) statement.push(visualNote);
       else statement.splice(promptIndex, 0, visualNote);
     }
-    const extractedStatement = repairKnownSplitWords(removePdfArtifacts(statement.join(" "))).replaceAll(pageBreakMarker, " ").replace(/\s+/g, " ").trim();
+    const extractedStatement = stripPageMarkers(repairKnownSplitWords(removePdfArtifacts(statement.join(" ")))).replace(/\s+/g, " ").trim();
     const extractedOptions = labels
       .filter((label) => options[label])
-      .map((label) => ({ label, text: repairKnownSplitWords(removePdfArtifacts(options[label].join(" "))).replaceAll(pageBreakMarker, " ").replace(/\s+/g, " ").trim() }));
+      .map((label) => ({ label, text: stripPageMarkers(repairKnownSplitWords(removePdfArtifacts(options[label].join(" ")))).replace(/\s+/g, " ").trim() }));
     const cleanedOptions = Object.fromEntries(extractedOptions.map(({ label, text }) => [label, [text]]));
     const candidateText = [extractedStatement, ...extractedOptions.map(({ text }) => text)].join(" ");
     const referencesVisual = referencesVisualContent(candidateText);
+    const visualPages = extractOptions?.visualPages;
+    const visualQuestionPages = !sawVisualMarkers && visualPages
+      ? [...new Set(candidate.pages.filter((page) => visualPages.has(page)))].sort((a, b) => a - b)
+      : [];
     const numericOptionAnomaly = hasNumericOptionAnomaly(cleanedOptions);
     const hasUnknownGlyph = /[\uFFFD\uE000-\uF8FF]/u.test(candidateText);
     const hasPdfFooterResidue = /VALIDIN[3E]P|\*R\d{7,}\*|LOGO\s*\d*\s*MAT.{0,2}RIA/iu.test(candidateText);
@@ -293,7 +378,11 @@ export function extractQuestions(text: string): ExtractedQuestion[] {
         ? "A extraÃ§Ã£o nÃ£o identificou o enunciado."
         : referencesVisual
           ? "O enunciado pode depender de elemento visual; confira o PDF original."
-          : numericOptionAnomaly
+          : candidate.visual
+            ? "Há imagem ou gráfico nesta questão; confira se o elemento faz parte dela no PDF original."
+            : visualQuestionPages.length
+              ? `Há imagem ou gráfico na(s) página(s) ${visualQuestionPages.join(", ")}; confira se o elemento faz parte desta questão no PDF original.`
+              : numericOptionAnomaly
             ? "Uma alternativa numÃ©rica parece conter erro de leitura; confira o PDF original."
             : hasUnknownGlyph
               ? "O texto contÃ©m caracteres nÃ£o reconhecidos pelo extrator; confira o PDF original."
