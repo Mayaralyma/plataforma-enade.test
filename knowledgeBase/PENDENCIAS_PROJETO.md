@@ -19,7 +19,7 @@ Os testes E2E dos fluxos de administrador, importação e estudante passaram em 
 
 - **PA-01:** definir métricas de sucesso do produto.
 - **PA-03:** confirmar estimativas de Story Points após Planning Poker.
-- **PA-06:** confirmar quais funcionalidades permanecem adiadas e se OCR para PDFs digitalizados entra no escopo.
+- **PA-06:** confirmar hospedagem remota, armazenamento R2, visualização de PDF e exportação de resultados. OCR foi adotado para gabaritos escaneados (até 10 páginas); OCR de provas completas permanece fora do escopo.
 - **PA-08/PA-09:** confirmar equipe e responsabilidades, pois os documentos de origem divergem.
 - **PA-10:** definir políticas operacionais de sessão, senha e recuperação de acesso, retenção e exclusão de dados, backup e restauração. A configuração atual e seus padrões estão auditados em [VERIFICACAO_PRD.md](VERIFICACAO_PRD.md).
 
@@ -28,7 +28,7 @@ Os testes E2E dos fluxos de administrador, importação e estudante passaram em 
 - Repetir medições de extração e curadoria com carga controlada em ambiente representativo; as medições atuais são locais e não estabelecem SLA de produção.
 - Definir destino e frequência de backups, retenção e objetivos de recuperação; automatizar e testar a restauração. Volumes persistentes não são backup.
 - Preparar hospedagem e armazenamento privado de PDFs antes de uma implantação remota. A configuração Docker atual é para desenvolvimento local.
-- Ampliar fixtures para outros anos/áreas conforme a cobertura desejada. PDFs digitalizados/OCR dependem de confirmação de escopo em PA-06.
+- Validar OCR de gabaritos com PDFs escaneados de diferentes qualidades e layouts; a fixture de 2025 (tabela de 80 respostas em imagem) já está coberta por teste unitário e E2E, com 79/80 respostas reconhecidas e conferência obrigatória antes da publicação. Ampliar fixtures oficiais para outros anos/áreas conforme a cobertura desejada. A extração de questões de provas escaneadas permanece fora do escopo.
 
 ## Fora das pendências de implementação
 

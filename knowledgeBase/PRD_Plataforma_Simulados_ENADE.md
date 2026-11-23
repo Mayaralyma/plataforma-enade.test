@@ -104,7 +104,7 @@ Os documentos de partida não definem métricas de sucesso do produto (por exemp
 
 ## 2.2 Fora do escopo ou adiado
 
-- **OCR (Tesseract.js ou similar):** não previsto; só entra se os testes revelarem arquivos digitalizados ou páginas sem texto selecionável.
+- **OCR da prova completa:** não previsto. O OCR foi incluído para importar gabaritos digitalizados (até 10 páginas); as respostas reconhecidas devem ser conferidas pelo administrador. A extração de questões de provas digitalizadas continua fora do escopo.
 
 - **Exportação de resultados ou relatórios em PDF (pdf-lib):** não consta no backlog; condicional e adiada.
 
@@ -659,7 +659,7 @@ Situação: Adotada e Recomendada (ponto de partida), Condicional (depende de ne
 | Extração de texto | pdf-parse | Adotada (protótipo) | Extrai texto dos PDFs digitais |
 | Visualização de PDF | PDF.js (pdfjs-dist) | Condicional | Exibir a prova original na revisão, se necessário |
 | Criação de PDFs | pdf-lib | Condicional / adiada | Eventual exportação de resultados; não consta no backlog |
-| OCR | Tesseract.js (ou similar) | Não previsto | Somente se houver arquivos digitalizados |
+| OCR de gabaritos | Tesseract.js | Adotado para gabaritos digitalizados | Reconhecimento em português de PDFs de até 10 páginas; respostas precisam de conferência |
 | Fila de tarefas | pg-boss | Recomendada (PB09) | Enfileira e gerencia o processamento usando o PostgreSQL |
 | Execução em segundo plano | Worker Node.js/TypeScript | Adotada | Processo separado, no mesmo repositório, que executa a extração |
 | Armazenamento (dev) | Volume Docker ou diretório local | Adotada | Mantém os PDFs entre reinicializações |
@@ -781,7 +781,7 @@ Seção sugerida no VF, sem origem nos materiais de partida; pode ser ajustada o
 | --- | --- | --- |
 | PA-01 | Definir métricas de sucesso do produto (uso, conclusão de simulados e qualidade percebida, por exemplo). | Seção 1.3 |
 | PA-03 | Recalibrar os Story Points após Planning Poker. Pendência de planejamento, sem impacto na implementação já validada. | Seção 10 |
-| PA-06 | Confirmar se hospedagem remota, R2, visualização PDF.js e exportação pdf-lib permanecem adiados. OCR só é necessário se forem aceitos PDFs digitalizados. | Seções 2.2, 9.3 e 11 |
+| PA-06 | Confirmar se hospedagem remota, R2, visualização PDF.js e exportação pdf-lib permanecem adiados. OCR de gabaritos foi adotado; OCR de provas completas continua fora do escopo. | Seções 2.2, 9.3 e 11 |
 | PA-08 | Confirmar a equipe responsável: o Backlog/EAP e o VF apresentam equipes diferentes. | Capa, seção 10.2 |
 | PA-09 | Confirmar a responsabilidade pela extração: o VF diverge entre Henrique e Irapuam. | Seções 10.2 e 12 |
 | PA-10 | Definir requisitos operacionais de sessão, política de senha, retenção de dados e backup antes de uma operação continuada. | RNF-04, RNF-05 |

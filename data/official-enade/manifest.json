@@ -98,6 +98,31 @@
         { "type": "visualReview", "question": 6, "expected": true },
         { "type": "visualReview", "question": 7, "expected": false }
       ]
+    },
+    {
+      "id": "2024-licenciatura-computacao",
+      "year": 2024,
+      "area": "Computação (Licenciatura)",
+      "proof": "2024-licenciatura-computação/2024_Computacao_PV_1.pdf",
+      "answerKey": "2024-licenciatura-computação/2024_Computacao_GB_1.pdf",
+      "expectedQuestions": 63,
+      "expectedProofPages": 44,
+      "expectedAnswerKeyPages": 1,
+      "annulled": [15],
+      "requireFiveOptions": false,
+      "checks": []
+    },
+    {
+      "id": "2025-licenciatura-computacao",
+      "year": 2025,
+      "area": "Computação (Licenciatura)",
+      "proof": "2025-licenciatura-computacao/2025_computacao_PV_4.pdf",
+      "answerKey": "2025-licenciatura-computacao/2025_computacao_GB_4.pdf",
+      "expectedQuestions": 80,
+      "expectedProofPages": 40,
+      "expectedAnswerKeyPages": 1,
+      "requireFiveOptions": false,
+      "checks": []
     }
   ]
 }

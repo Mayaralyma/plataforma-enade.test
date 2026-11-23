@@ -12,4 +12,5 @@ uploads/
 .local/
 .tools/
 *.tsbuildinfo
+*.traineddata
 next-env.d.ts

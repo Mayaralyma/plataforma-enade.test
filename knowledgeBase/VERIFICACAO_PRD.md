@@ -174,4 +174,15 @@ As 38 questoes da edicao local de 2023 foram conferidas contra a prova e o gabar
 - A extração não alterou API, schema, CSS ou comportamento; o shell e as views de estudante continuam em `components/dashboard.tsx`.
 - `npm run lint`, `npm run typecheck`, `npm test` (32 testes), `npm run build` e `npm run test:e2e` (3/3) passaram.
 
+## Revalidação do OCR de gabaritos em 21/11/2026
+
+- A fixture `data/official-enade/2025-licenciatura-computacao/` foi adicionada: a prova tem texto selecionável e o gabarito tem texto apenas na marca d'água, com a tabela de 80 respostas em imagem.
+- O renderizador usa `@napi-rs/canvas@0.1.100` (faixa exigida por `pdfjs-dist@4.10.38`); a versão `1.2.0` causava falha nativa (`STATUS_ACCESS_VIOLATION`) ao renderizar a página. O OCR usa escala 3 e whitelist `0123456789ABCDNUL`, com PSM automático e cache do idioma desativado (nenhum `por.traineddata` é gravado no projeto).
+- Na fixture real, o OCR recuperou 79/80 respostas: questão 1 = D, questão 34 e 79 = ANULADA, questão 80 = A. A questão 9 é perdida pela leitura da tabela e fica para preenchimento manual na curadoria.
+- Respostas vindas de OCR passam a ser gravadas com `needsReview: true` e `reviewNote`; questões publicadas voltam para `PENDING`. A publicação pela API agora rejeita questões com `needsReview`, e o editor já registra a conferência ao salvar a revisão.
+- A rota valida PDF pelo cabeçalho `%PDF-`, limita gabaritos a 10 páginas e 5 MB antes de processar, e distingue erro do usuário (400) de falha interna (500, com log).
+- Durante o teste manual do gabarito de 2025, o parser extraiu apenas 1 questão: a menção a “Questionário de Percepção da Prova Objetivas01 a 09” no sumário fazia o corte ocorrer antes do caderno de questões. O corte agora ignora ocorrências de sumário (linhas com `Objetivas`, `DISCURSIVA`, `NÚMERO DAS QUESTÕES` ou `COMPOSIÇÃO`) e usa o primeiro cabeçalho real de percepção.
+- Com a correção, a prova de 2025 gera 80 questões numeradas e o gabarito aplica 79 respostas. As 80 questões ficam sinalizadas para revisão porque o texto selecionável da prova contém só as alternativas A–D; a quinta alternativa precisa ser adicionada manualmente antes da publicação.
+- Verificações executadas: `npm run lint`, `npm run typecheck`, `npm test` (40 testes), `npm run validate:official-enade` (7 fixtures, 248/248 questões), build de produção (`npx next build`) e E2E completo nos 3 navegadores (12/12: 4 specs × Chromium, Firefox e WebKit). O script `npm run build` falhou apenas no passo `prisma generate` porque um worker de desenvolvimento já em execução mantinha o DLL do Prisma bloqueado; o build da aplicação passou.
+
 

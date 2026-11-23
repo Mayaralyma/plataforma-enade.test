@@ -166,7 +166,7 @@ test("admin importa PDF, aplica gabarito e worker reexecuta sem duplicar questoe
     await prisma.option.createMany({
       data: ["A", "B", "C", "D", "E"].map((label) => ({ questionId: preservedPublished.id, label, text: `Opção ${label}` })),
     });
-    await prisma.question.update({ where: { id: preservedPublished.id }, data: { correctOption: "A", annulled: false, reviewedAt: new Date() } });
+    await prisma.question.update({ where: { id: preservedPublished.id }, data: { correctOption: "A", annulled: false, needsReview: false, reviewedAt: new Date() } });
     expect((await page.request.post(`/api/admin/questions/${preservedPublished.id}`, { data: { action: "publish" } })).status()).toBe(200);
     await prisma.question.update({ where: { id: preservedPublished.id }, data: { statement: "Texto publicado preservado" } });
     const publishedRetry = await enqueueRetry(editionId);

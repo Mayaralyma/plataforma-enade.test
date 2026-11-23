@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import pdfParse from "pdf-parse";
+import { extractScannedPdfText, terminateOcrWorker } from "../lib/answer-key-ocr";
 import { parseExamPdf } from "../lib/pdf-analysis";
 import { extractQuestions, parseAnswerKey, type ExtractedQuestion } from "../lib/pdf-parser";
 
@@ -17,11 +18,13 @@ type Fixture = {
   area: string;
   proof: string;
   answerKey: string;
+  expectedQuestions?: number;
   expectedProofPages?: number;
   expectedAnswerKeyPages?: number;
   annulled?: number[];
   expectedVisualReview?: number[];
   checks?: FixtureCheck[];
+  requireFiveOptions?: boolean;
 };
 
 type Manifest = { fixtures: Fixture[] };
@@ -95,16 +98,29 @@ async function validateFixture(fixture: Fixture, baseDir: string) {
   const questions = extractQuestions(proof.text, { visualPages: proof.visualPages });
   const durationMs = Date.now() - startedAt;
   const answerKey = await pdfParse(answerKeyBuffer);
-  const answers = parseAnswerKey(answerKey.text);
-  const expectedNumbers = [...answers.keys()].sort((a, b) => a - b);
+  let answerKeyText = answerKey.text;
+  let answers = parseAnswerKey(answerKeyText);
+  if (!answers.size) {
+    try {
+      answerKeyText = await extractScannedPdfText(answerKeyBuffer);
+      answers = parseAnswerKey(answerKeyText);
+    } catch {
+      // Keep the original empty result; the fixture will fail with the standard message.
+    }
+  }
+  const expectedNumbers = (fixture.expectedQuestions ? Array.from({ length: fixture.expectedQuestions }, (_, index) => index + 1) : [...answers.keys()]).sort((a, b) => a - b);
   const extractedNumbers = questions.map(({ number }) => number);
   const missingQuestions = expectedNumbers.filter((number) => !extractedNumbers.includes(number));
-  const extraQuestions = [...new Set(extractedNumbers.filter((number) => !answers.has(number)))].sort((a, b) => a - b);
+  const extraQuestions = [...new Set(extractedNumbers.filter((number) => !expectedNumbers.includes(number)))].sort((a, b) => a - b);
   const duplicateQuestions = [...new Set(extractedNumbers.filter((number, index) => extractedNumbers.indexOf(number) !== index))].sort((a, b) => a - b);
+  const requireFiveOptions = fixture.requireFiveOptions !== false;
   const malformedQuestions = questions.filter((question) => {
     const labels = question.options.map(({ label }) => label.toUpperCase()).join("");
-    return !question.statement.trim() || question.options.length !== 5 || labels !== "ABCDE" || question.options.some(({ text }) => !text.trim());
+    const expectedLabels = "ABCDE".slice(0, labels.length);
+    const minOptions = requireFiveOptions ? 5 : 4;
+    return !question.statement.trim() || question.options.length < minOptions || question.options.length > 5 || labels !== expectedLabels || question.options.some(({ text }) => !text.trim());
   });
+  const fourOptionQuestions = questions.filter((question) => question.options.length === 4).map(({ number }) => number);
   const questionsWithFooterResidue = questions
     .filter((question) => [question.statement, ...question.options.map(({ text }) => text)].some((value) => footerPattern.test(value)))
     .map(({ number }) => number);
@@ -116,6 +132,11 @@ async function validateFixture(fixture: Fixture, baseDir: string) {
   if (extraQuestions.length) failures.push(`questões fora do gabarito: ${extraQuestions.join(", ")}`);
   if (duplicateQuestions.length) failures.push(`questões duplicadas: ${duplicateQuestions.join(", ")}`);
   if (malformedQuestions.length) failures.push(`questões malformadas: ${malformedQuestions.map(({ number }) => number).join(", ")}`);
+  if (requireFiveOptions && fourOptionQuestions.length) failures.push(`questões sem cinco alternativas: ${fourOptionQuestions.join(", ")}`);
+  if (!requireFiveOptions) {
+    const missingReview = fourOptionQuestions.filter((number) => !questions.find((question) => question.number === number)?.needsReview);
+    if (missingReview.length) failures.push(`questões com 4 alternativas deveriam estar em revisão: ${missingReview.join(", ")}`);
+  }
   if (questionsWithFooterResidue.length) failures.push(`resíduo de rodapé nas questões: ${questionsWithFooterResidue.join(", ")}`);
   if (fixture.expectedProofPages !== undefined && proof.numpages !== fixture.expectedProofPages) failures.push(`a prova deveria ter ${fixture.expectedProofPages} páginas, recebeu ${proof.numpages}`);
   if (fixture.expectedAnswerKeyPages !== undefined && answerKey.numpages !== fixture.expectedAnswerKeyPages) failures.push(`o gabarito deveria ter ${fixture.expectedAnswerKeyPages} página(s), recebeu ${answerKey.numpages}`);
@@ -139,7 +160,7 @@ async function validateFixture(fixture: Fixture, baseDir: string) {
     area: fixture.area,
     proofPages: proof.numpages,
     answerKeyPages: answerKey.numpages,
-    expectedQuestions: answers.size,
+    expectedQuestions: expectedNumbers.length,
     extractedQuestions: questions.length,
     questionsWithFiveOptions: questions.length - malformedQuestions.length,
     missingQuestions,
@@ -180,6 +201,7 @@ async function main() {
     failures,
   }, null, 2));
 
+  await terminateOcrWorker().catch(() => undefined);
   if (failures.length) process.exitCode = 1;
 }
 

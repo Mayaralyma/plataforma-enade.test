@@ -36,16 +36,16 @@ O e-mail é comparado sem diferenciar maiúsculas de minúsculas. O comando vali
 
 - Cadastro/login por e-mail e senha, com controle de perfil no servidor.
 - Upload de PDFs e processamento em worker separado com fila pg-boss.
-- Importação de gabarito em TXT/CSV: uma resposta por linha, por exemplo `1; A` ou `12; ANULADA`.
+- Importação de gabarito em PDF pesquisável ou escaneado (OCR em português, até 10 páginas), CSV ou TXT. Em CSV/TXT, use uma resposta por linha, por exemplo `1; A` ou `12; ANULADA`.
 - Revisão, edição, publicação ou descarte de questões.
 - Simulados com navegação livre, salvamento de respostas, correção no servidor e histórico individual.
 - PDFs originais armazenados localmente e entregues apenas por rota administrativa autenticada.
 
 ## Observações de implementação
 
-- O parser inicial foi feito para provas digitais com texto selecionável e padrões simples de numeração e alternativas A–E. A extração foi calibrada com as sete provas oficiais versionadas; conteúdo com figuras, tabelas e gráficos ainda exige conferência manual. OCR permanece fora do escopo inicial do PRD.
+- O parser de provas foi feito para documentos digitais com texto selecionável e padrões simples de numeração e alternativas A–E. Gabaritos escaneados usam renderização local e OCR em português (Tesseract.js): a tabela é lida com escala 3 e whitelist de caracteres; respostas reconhecidas ficam marcadas para conferência e só podem ser publicadas depois que o administrador salvar a revisão. A extração de questões de provas escaneadas continua fora do escopo.
 - O extrator também detecta imagens embutidas no PDF, inclusive JPEG, ignora imagens decorativas repetidas e associa o aviso visual à questão mais próxima na mesma coluna. A calibração atual cobre as sete provas oficiais versionadas em `data/official-enade/` (seis de 2021 e uma de 2023); a conferência humana continua necessária.
-- O gabarito aceito nesta primeira versão é TXT/CSV em linhas `número; alternativa`, incluindo `ANULADA`. A associação é feita pelo número original da questão.
+- Gabaritos aceitos são PDF pesquisável ou escaneado (até 10 páginas), CSV ou TXT. Em CSV/TXT use linhas `número; alternativa`, incluindo `ANULADA`; a associação é feita pelo número original da questão. O OCR pode perder alguma resposta em tabelas muito ruidosas; nesse caso, complete a questão na curadoria.
 - O banco usa a migração inicial do Prisma. Para um ambiente publicado, configure armazenamento privado de arquivos antes da implantação.
 - O PRD ainda deixa pendentes a definição de métrica de sucesso, decisões de hospedagem/armazenamento, requisitos de sessão/retenção/backup e algumas responsabilidades da equipe. As metas de resposta rápida (PA-02) e as provas de validação (PA-05) já foram definidas.
 

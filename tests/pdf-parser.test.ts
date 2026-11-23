@@ -25,6 +25,50 @@ it("extracts numbered questions, wrapped statements and five alternatives", () =
   expect(questions[0].needsReview).toBe(false);
 });
 
+  it("não corta as questões objetivas quando o sumário cita o questionário de percepção", () => {
+    const questions = extractQuestions(`
+      CADERNO DE PROVA
+      Composição do Caderno de Prova
+      Questionário de Percepção da Prova Objetivas01 a 09
+      QUESTÃO 01
+      Primeira pergunta objetiva.
+      A) Alternativa A.
+      B) Alternativa B.
+      C) Alternativa C.
+      D) Alternativa D.
+      E) Alternativa E.
+      QUESTÃO 02
+      Segunda pergunta objetiva.
+      A) Alternativa A.
+      B) Alternativa B.
+      C) Alternativa C.
+      D) Alternativa D.
+      E) Alternativa E.
+      AVALIAÇÃO GLOBAL DA PROVA
+      QUESTÃO 01
+      Pergunta de percepção.
+      A) Alternativa A.
+      B) Alternativa B.
+      C) Alternativa C.
+      D) Alternativa D.
+      E) Alternativa E.
+    `);
+
+    expect(questions.map((question) => question.number)).toEqual([1, 2]);
+  });
+
+  it("detecta gabaritos tabulares com anulação por asterisco", () => {
+    const key = parseAnswerKey(`
+      Gabarito Definitivo
+      1 2 3 4 5 6 7
+      C B D B A A D
+      15 16 17 18 19 20 21
+      * D D B C D D
+    `);
+
+    expect([...key.entries()]).toEqual([[1, "C"], [2, "B"], [3, "D"], [4, "B"], [5, "A"], [6, "A"], [7, "D"], [15, null], [16, "D"], [17, "D"], [18, "B"], [19, "C"], [20, "D"], [21, "D"]]);
+  });
+
 it("marks incomplete alternatives and references to figures for manual review", () => {
   const questions = extractQuestions(`
     QUESTÃƒO 3
@@ -464,6 +508,28 @@ it("parses official answer-key rows with the question label attached to the answ
   const answers = parseAnswerKey("QUESTÃO 32C\nQUESTÃO 33ANULADA\nQUESTÃO DISCURSIVA 3***");
 
   expect([...answers.entries()]).toEqual([[32, "C"], [33, null]]);
+});
+
+it("parses separated, piped and hyphenated answer-key rows", () => {
+  const answers = parseAnswerKey("QUESTÃO 1 D\nQUESTÃO 2 | E\nQUESTÃO 3 - A\nQUESTÃO 4: ANULADO");
+
+  expect([...answers.entries()]).toEqual([[1, "D"], [2, "E"], [3, "A"], [4, null]]);
+});
+
+it("parses every answer pair on a scanned answer-key table row", () => {
+  const answers = parseAnswerKey("14 14 14 14\n1 D 21 A 41 B 61 B\n2 B 22 D 42 C 62 A\n34ANULADA\n79ANULADA");
+
+  expect([...answers.entries()]).toEqual([
+    [1, "D"], [21, "A"], [41, "B"], [61, "B"],
+    [2, "B"], [22, "D"], [42, "C"], [62, "A"],
+    [34, null], [79, null],
+  ]);
+});
+
+it("normalizes full-width OCR characters in answer keys", () => {
+  const answers = parseAnswerKey("QUESTÃO ４；Ｄ\n５　Ａ");
+
+  expect([...answers.entries()]).toEqual([[4, "D"], [5, "A"]]);
 });
 
 it("associates a visual marker that precedes a question heading with the next question", () => {
